@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'add_roster_screen.dart'; // Import to enable navigation to AddRosterScreen
 import 'edit_roster_screen.dart'; // Import for EditRosterScreen
 import '../menu/menu_screen.dart';
+import '../home/home_screen.dart';
 
 
 
@@ -51,6 +52,12 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MenuScreen()),
+      );
+    } else if (index == 1) {
+       Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        (route) => false,
       );
     } else {
       setState(() {

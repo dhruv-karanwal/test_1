@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../menu/menu_screen.dart';
+import '../home/home_screen.dart';
 import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
 
@@ -49,6 +50,12 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MenuScreen()),
+      );
+    } else if (index == 1) {
+       Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        (route) => false, // Remove all back stack to make Home the root
       );
     } else {
       setState(() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../rooster/rosters_detail_screen.dart';
 import '../guide/guide_detail_screen.dart';
+import '../home/home_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -259,7 +260,7 @@ class MenuScreen extends StatelessWidget {
         if (index == 1) {
              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const GuideDetailScreen()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
         } else if (index == 2) {
              ScaffoldMessenger.of(context).showSnackBar(
