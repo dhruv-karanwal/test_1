@@ -329,8 +329,8 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
       onTap: () => _onItemTapped(index),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        width: isSelected ? 70 : 50,
-        height: isSelected ? 70 : 50,
+        width: isSelected ? 70 : 60, // Increased from 50 to 60
+        height: isSelected ? 70 : 60, // Increased from 50 to 60
         padding: isSelected ? const EdgeInsets.all(6) : EdgeInsets.zero,
         decoration: BoxDecoration(
           color: isSelected ? navSelectedOuter : navUnselected,
@@ -350,7 +350,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
             color: isSelected ? navSelectedInner : Colors.transparent,
             shape: BoxShape.circle,
           ),
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(8), // Reduced padding from 12 to 8 for larger icon
           child: Image.asset(
             assetPath,
             fit: BoxFit.contain,

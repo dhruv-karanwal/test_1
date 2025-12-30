@@ -205,13 +205,13 @@ class HomeScreen extends StatelessWidget {
         }
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 60, // Increased from 50
+        height: 60, // Increased from 50
         decoration: const BoxDecoration(
           color: Color(0xFFD9D9D9),
           shape: BoxShape.circle,
         ),
-         padding: const EdgeInsets.all(12),
+         padding: const EdgeInsets.all(8), // Reduced from 12 to make icon usage larger
          child: Image.asset(
             assetPath,
             fit: BoxFit.contain,
