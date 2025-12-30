@@ -162,8 +162,12 @@ class HomeScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const SizedBox(width: 56), // Placeholder to balance the icon on the right for perfect symmetry (Icon is radius 30*2 + paddings)
-          // Actually, using Expanded -> Center is better.
+          const SizedBox(width: 24), // Left padding
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.white,
+             child: Icon(icon, color: Colors.black, size: 36), 
+          ),
           Expanded(
             child: Center(
               child: Text(
@@ -177,12 +181,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.white,
-             child: Icon(icon, color: Colors.black, size: 36), 
-          ),
-          const SizedBox(width: 24), // Right padding for icon
+          const SizedBox(width: 84), // Balance right side (Icon 60 + Padding 24 = 84) to keep text perfectly centered
         ],
       ),
     );
