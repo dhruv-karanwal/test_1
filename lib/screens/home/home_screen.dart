@@ -161,25 +161,28 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(width: 56), // Placeholder to balance the icon on the right for perfect symmetry (Icon is radius 30*2 + paddings)
+          // Actually, using Expanded -> Center is better.
+          Expanded(
+            child: Center(
+              child: Text(
+                text,
+                style: GoogleFonts.langar(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           CircleAvatar(
             radius: 30,
             backgroundColor: Colors.white,
-             child: Icon(icon, color: Colors.black, size: 36), // Placeholder icon
+             child: Icon(icon, color: Colors.black, size: 36), 
           ),
-          const SizedBox(width: 16),
-          Flexible( // Handle long text
-            child: Text(
-              text,
-              style: GoogleFonts.langar(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
+          const SizedBox(width: 24), // Right padding for icon
         ],
       ),
     );
