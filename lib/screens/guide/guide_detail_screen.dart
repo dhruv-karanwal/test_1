@@ -302,7 +302,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
       ),
       
       bottomNavigationBar: Container(
-        height: 72,
+        height: 100, // Increased from 72
         decoration: const BoxDecoration(
           color: appGreen,
           borderRadius: BorderRadius.only(
