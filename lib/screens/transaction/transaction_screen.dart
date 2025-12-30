@@ -3,26 +3,26 @@ import 'package:google_fonts/google_fonts.dart';
 import '../rooster/rosters_detail_screen.dart';
 import '../guide/guide_detail_screen.dart';
 import '../home/home_screen.dart';
-import '../transaction/transaction_screen.dart';
+import '../menu/menu_screen.dart';
 
-class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+class TransactionScreen extends StatelessWidget {
+  const TransactionScreen({super.key});
 
-  // Colors extracted from design
-  static const Color appGreen = Color(0xFF555E40); // Standard App Green
-  static const Color buttonBrown = Color(0xFF6D5446); // Brown buttons
-  static const Color userCardBrown = Color(0xFF6D5446); // User Info Card
-  static const Color userIconBg = Color(0xFFD9D9D9); // Grey circle
-  static const Color activeNavInner = Color(0xFFD4AF37); // Gold/Yellow (Menu)
+  // Colors extracted from design (Consistent with MenuScreen)
+  static const Color appGreen = Color(0xFF555E40); 
+  static const Color buttonBrown = Color(0xFF6D5446); 
+  static const Color userCardBrown = Color(0xFF6D5446); 
+  static const Color userIconBg = Color(0xFFD9D9D9); 
+  static const Color activeNavInner = Color(0xFFD4AF37); // Gold/Yellow
   static const Color activeNavOuter = Colors.white;
-  static const Color drawerBackground = Color(0xFFD4C19C); // Beige Drawer Background
+  static const Color drawerBackground = Color(0xFFD4C19C); 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Custom implementation
+        automaticallyImplyLeading: false, 
         toolbarHeight: 93,
         backgroundColor: appGreen,
         title: Row(
@@ -68,34 +68,34 @@ class MenuScreen extends StatelessWidget {
               ),
             ),
             child: Container(
-              color: Colors.black.withOpacity(0.5), // Dark overlay for menu focus
+              color: Colors.black.withOpacity(0.5), 
             ),
           ),
 
-          // 2. DRAWER CONTAINER (Left Aligned, Specific Width)
+          // 2. DRAWER CONTAINER (Right Aligned)
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.centerRight, // Right Aligned
             child: Container(
-              width: 304, // Exact width as requested
+              width: 304, 
               decoration: const BoxDecoration(
                 color: drawerBackground,
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(40),
+                  topLeft: Radius.circular(40), // Rounded top-left corner
                 ),
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 160), // Increased top spacing for clear gap from AppBar
+                  const SizedBox(height: 160), 
 
                   // USER PROFILE CARD
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16), // Tighter padding for narrower width
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       height: 100,
                       decoration: BoxDecoration(
                         color: userCardBrown,
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
+                        borderRadius: BorderRadius.circular(50), 
+                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.25),
                             blurRadius: 4,
@@ -106,15 +106,15 @@ class MenuScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 24.0), // Increased to ensure full visibility
+                            padding: const EdgeInsets.only(left: 24.0), 
                             child: CircleAvatar(
                               radius: 42,
                               backgroundColor: userIconBg,
                               child: const Icon(Icons.person, size: 60, color: Colors.black),
                             ),
                           ),
-                          const SizedBox(width: 24), // Increased gap
-                          Expanded( // Added Expanded to avoid overlap/overflow
+                          const SizedBox(width: 24), 
+                          Expanded( 
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +127,7 @@ class MenuScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 4), // Added vertical gap
+                                const SizedBox(height: 4), 
                                 Text(
                                   "CLERK-12410",
                                   style: GoogleFonts.langar(
@@ -146,30 +146,16 @@ class MenuScreen extends StatelessWidget {
                   const SizedBox(height: 40),
 
                   // MENU BUTTONS
-                  _buildMenuButton(context, "ROOSTER AVAILABILTY", () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
+                  _buildMenuButton(context, "TRANSACTION HISTORY", () {
+                     // Navigate to Transaction History logic
+                     ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Transaction History - Coming Soon")),
                     );
                   }),
                   const SizedBox(height: 16),
-                  _buildMenuButton(context, "ROOSTER MAINTENACE", () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                  _buildMenuButton(context, "HOTEL DETAILS MANAGEMENT", () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Coming Soon")),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                  _buildMenuButton(context, "GUIDE MAINTENACE", () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const GuideDetailScreen()),
+                  _buildMenuButton(context, "OTHER", () {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Other - Coming Soon")),
                     );
                   }),
                 ],
@@ -181,7 +167,7 @@ class MenuScreen extends StatelessWidget {
 
       // BOTTOM NAV
       bottomNavigationBar: Container(
-        height: 100, // Increased from 72
+        height: 100,
         decoration: const BoxDecoration(
           color: appGreen,
           borderRadius: BorderRadius.only(
@@ -192,8 +178,12 @@ class MenuScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Selected Menu Item
-            GestureDetector(
+            
+            _buildUnselectedNavItem(context, 'assets/nav_menu.png', 0),
+            _buildUnselectedNavItem(context, 'assets/nav_home_new.png', 1),
+
+            // Selected Transaction Item (Index 2)
+             GestureDetector(
               onTap: () {}, 
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -201,7 +191,7 @@ class MenuScreen extends StatelessWidget {
                 height: 70, 
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: activeNavOuter,
+                  color: activeNavOuter, // White outer
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
@@ -213,20 +203,17 @@ class MenuScreen extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: activeNavInner,
+                    color: activeNavInner, // Yellow inner
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(12),
                   child: Image.asset(
-                    'assets/nav_menu.png',
+                    'assets/transaction.png',
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
-            
-            _buildUnselectedNavItem(context, 'assets/nav_home_new.png', 1),
-            _buildUnselectedNavItem(context, 'assets/transaction.png', 2),
           ],
         ),
       ),
@@ -235,7 +222,7 @@ class MenuScreen extends StatelessWidget {
 
   Widget _buildMenuButton(BuildContext context, String text, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16), // Adjusted padding for drawer
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         width: double.infinity, 
         child: Container(
@@ -243,8 +230,8 @@ class MenuScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: buttonBrown,
             border: Border.all(color: Colors.black, width: 2),
-            borderRadius: BorderRadius.circular(4), // Subtle rounding
-            boxShadow: [
+            borderRadius: BorderRadius.circular(4), 
+             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.3),
                 blurRadius: 4,
@@ -277,26 +264,26 @@ class MenuScreen extends StatelessWidget {
   Widget _buildUnselectedNavItem(BuildContext context, String assetPath, int index) {
      return GestureDetector(
       onTap: () {
-        if (index == 1) {
+        if (index == 0) {
+             Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MenuScreen()),
+              );
+        } else if (index == 1) {
              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
-        } else if (index == 2) {
-             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionScreen()),
-              );
         }
       },
       child: Container(
-        width: 60, // Increased from 50
-        height: 60, // Increased from 50
+        width: 60, 
+        height: 60, 
         decoration: const BoxDecoration(
           color: Color(0xFFD9D9D9),
           shape: BoxShape.circle,
         ),
-         padding: const EdgeInsets.all(8), // Reduced from 12
+         padding: const EdgeInsets.all(8), 
          child: Image.asset(
             assetPath,
             fit: BoxFit.contain,

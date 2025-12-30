@@ -5,6 +5,7 @@ import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 class GuideDetailApp extends StatelessWidget {
   const GuideDetailApp({super.key});
@@ -56,6 +57,11 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
         (route) => false, // Remove all back stack to make Home the root
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const TransactionScreen()),
       );
     } else {
       setState(() {

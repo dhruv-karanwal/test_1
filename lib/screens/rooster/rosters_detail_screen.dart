@@ -5,6 +5,7 @@ import 'add_roster_screen.dart'; // Import to enable navigation to AddRosterScre
 import 'edit_roster_screen.dart'; // Import for EditRosterScreen
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 
 
@@ -58,6 +59,11 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
         (route) => false,
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const TransactionScreen()),
       );
     } else {
       setState(() {

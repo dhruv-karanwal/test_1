@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
+import '../landing/landing_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,13 +25,11 @@ class HomeScreen extends StatelessWidget {
           children: [
              GestureDetector(
               onTap: () {
-                // Navigate to back or exit? Home is usually top level.
-                // But image shows back arrow. Leaving it non-functional or exit for now if it's root.
-                // Or maybe user meant "Drawer Menu" button should be here?
-                // The image shows back arrow in app bar, but Bottom Nav has Menu.
-                // Standard pattern: Root screen doesn't have back.
-                // I will keep the back arrow passing 'maybePop' just in case.
-                 Navigator.maybePop(context);
+                 Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LandingScreen()),
+                  (route) => false,
+                );
               },
               child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
             ),
@@ -199,9 +199,10 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const MenuScreen()),
               );
         } else if (index == 2) {
-             ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Transactions - Coming Soon")),
-             );
+             Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TransactionScreen()),
+              );
         }
       },
       child: Container(
