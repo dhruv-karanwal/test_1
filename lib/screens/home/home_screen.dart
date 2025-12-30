@@ -66,11 +66,14 @@ class HomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            child: Container(
+              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay to match design
+            ),
           ),
 
           // 2. CONTENT
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Reduced padding for wider buttons
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -147,11 +150,11 @@ class HomeScreen extends StatelessWidget {
   Widget _buildDashboardButton(String text, IconData icon) {
     return Container(
       width: double.infinity,
-      height: 120, // Tall, blocky buttons as per design
+      height: 140, // Increased height to look bigger
       decoration: BoxDecoration(
         color: buttonGold,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white, width: 2), // White dashed look in image? Solid for now.
+        borderRadius: BorderRadius.circular(24), // Slightly more rounded
+        border: Border.all(color: Colors.white, width: 2), 
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.3),
@@ -164,9 +167,9 @@ class HomeScreen extends StatelessWidget {
         children: [
           const SizedBox(width: 24), // Left padding
           CircleAvatar(
-            radius: 30,
+            radius: 36, // Increased Icon background size
             backgroundColor: Colors.white,
-             child: Icon(icon, color: Colors.black, size: 36), 
+             child: Icon(icon, color: Colors.black, size: 40), // Increased Icon size
           ),
           Expanded(
             child: Center(
@@ -174,14 +177,14 @@ class HomeScreen extends StatelessWidget {
                 text,
                 style: GoogleFonts.langar(
                   color: Colors.black,
-                  fontSize: 22,
+                  fontSize: 24, // Increased Font Size
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          const SizedBox(width: 84), // Balance right side (Icon 60 + Padding 24 = 84) to keep text perfectly centered
+          const SizedBox(width: 96), // 72*2 + 24 = 96 approx balance
         ],
       ),
     );
