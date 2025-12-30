@@ -78,7 +78,7 @@ class MenuScreen extends StatelessWidget {
               color: drawerBackground,
               child: Column(
                 children: [
-                  const SizedBox(height: 120), // Top spacing for AppBar
+                  const SizedBox(height: 160), // Increased top spacing for clear gap from AppBar
 
                   // USER PROFILE CARD
                   Padding(
