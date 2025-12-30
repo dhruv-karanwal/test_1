@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../menu/menu_screen.dart';
 import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
 
@@ -44,10 +45,17 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
   int _selectedIndex = 1; // Default to Home (Center)
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-   debugPrint("Selected index: $index");
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MenuScreen()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+     debugPrint("Selected index: $index");
+    }
   }
 
   void _navigateToAddGuide() {

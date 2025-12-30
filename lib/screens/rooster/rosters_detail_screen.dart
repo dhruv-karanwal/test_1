@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'add_roster_screen.dart'; // Import to enable navigation to AddRosterScreen
 import 'edit_roster_screen.dart'; // Import for EditRosterScreen
+import '../menu/menu_screen.dart';
 
 
 
@@ -46,10 +47,17 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
   int _selectedIndex = 1; // Default to Home (Center)
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-   debugPrint("Selected index: $index");
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MenuScreen()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+     debugPrint("Selected index: $index");
+    }
   }
 
   void _navigateToAddRoster() {
