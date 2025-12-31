@@ -4,6 +4,8 @@ import '../rooster/rosters_detail_screen.dart';
 import '../guide/guide_detail_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../hotels/hotel_list_screen.dart';
+import '../../utils/slide_route.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -13,229 +15,123 @@ class MenuScreen extends StatelessWidget {
   static const Color buttonBrown = Color(0xFF6D5446); // Brown buttons
   static const Color userCardBrown = Color(0xFF6D5446); // User Info Card
   static const Color userIconBg = Color(0xFFD9D9D9); // Grey circle
-  static const Color activeNavInner = Color(0xFFD4AF37); // Gold/Yellow (Menu)
-  static const Color activeNavOuter = Colors.white;
   static const Color drawerBackground = Color(0xFFD4C19C); // Beige Drawer Background
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // Custom implementation
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        title: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-            ),
-            const SizedBox(width: 16),
-            Text(
-              "BANDHAVGARH SAFARI",
-              style: GoogleFonts.langar(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ],
+    return Drawer(
+      width: 304, // Exact width as requested
+      backgroundColor: drawerBackground,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(40),
+          bottomRight: Radius.circular(0), // Normally drawers are square at bottom, but design might vary
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/logo.png'), 
-            ),
-          ),
-        ],
-        elevation: 0, 
       ),
-      body: Stack(
-        fit: StackFit.expand,
+      child: Column(
         children: [
-          // 1. BACKGROUND (Full Screen)
-          Container(
-             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Container(
-              color: Colors.black.withOpacity(0.5), // Dark overlay for menu focus
-            ),
-          ),
+          const SizedBox(height: 80), // Top spacing
 
-          // 2. DRAWER CONTAINER (Left Aligned, Specific Width)
-          Align(
-            alignment: Alignment.centerLeft,
+          // USER PROFILE CARD
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
-              width: 304, // Exact width as requested
-              decoration: const BoxDecoration(
-                color: drawerBackground,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(40),
-                ),
+              height: 100,
+              decoration: BoxDecoration(
+                color: userCardBrown,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  const SizedBox(height: 160), // Increased top spacing for clear gap from AppBar
-
-                  // USER PROFILE CARD
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16), // Tighter padding for narrower width
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: userCardBrown,
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            blurRadius: 4,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24.0), // Increased to ensure full visibility
-                            child: CircleAvatar(
-                              radius: 42,
-                              backgroundColor: userIconBg,
-                              child: const Icon(Icons.person, size: 60, color: Colors.black),
-                            ),
-                          ),
-                          const SizedBox(width: 24), // Increased gap
-                          Expanded( // Added Expanded to avoid overlap/overflow
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "USER 101",
-                                  style: GoogleFonts.langar(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4), // Added vertical gap
-                                Text(
-                                  "CLERK-12410",
-                                  style: GoogleFonts.langar(
-                                    color: Colors.white70,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                    padding: const EdgeInsets.only(left: 24.0),
+                    child: CircleAvatar(
+                      radius: 42,
+                      backgroundColor: userIconBg,
+                      child: const Icon(Icons.person, size: 60, color: Colors.black),
                     ),
                   ),
-
-                  const SizedBox(height: 40),
-
-                  // MENU BUTTONS
-                  _buildMenuButton(context, "ROOSTER AVAILABILTY", () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                  _buildMenuButton(context, "ROOSTER MAINTENACE", () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                  _buildMenuButton(context, "HOTEL DETAILS MANAGEMENT", () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Coming Soon")),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                  _buildMenuButton(context, "GUIDE MAINTENACE", () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const GuideDetailScreen()),
-                    );
-                  }),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "USER 101",
+                          style: GoogleFonts.langar(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "CLERK-12410",
+                          style: GoogleFonts.langar(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-        ],
-      ),
 
-      // BOTTOM NAV
-      bottomNavigationBar: Container(
-        height: 100, // Increased from 72
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // Selected Menu Item
-            GestureDetector(
-              onTap: () {}, 
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                width: 70,
-                height: 70, 
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: activeNavOuter,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: activeNavInner,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(
-                    'assets/nav_menu.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-            
-            _buildUnselectedNavItem(context, 'assets/nav_home_new.png', 1),
-            _buildUnselectedNavItem(context, 'assets/transaction.png', 2),
-          ],
-        ),
+          const SizedBox(height: 40),
+
+          // MENU BUTTONS
+
+          const SizedBox(height: 16),
+          _buildMenuButton(context, "ROOSTER AVAILABILTY", () {
+            Navigator.pop(context); // Close drawer
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
+            );
+          }),
+          const SizedBox(height: 16),
+          _buildMenuButton(context, "ROOSTER MAINTENACE", () {
+             Navigator.pop(context); // Close drawer
+             Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
+            );
+          }),
+          const SizedBox(height: 16),
+          _buildMenuButton(context, "HOTEL DETAILS MANAGEMENT", () {
+            Navigator.pop(context); // Close drawer
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HotelListScreen()),
+            );
+          }),
+          const SizedBox(height: 16),
+          _buildMenuButton(context, "GUIDE MAINTENACE", () {
+            Navigator.pop(context); // Close drawer
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GuideDetailScreen()),
+            );
+          }),
+        ],
       ),
     );
   }
 
   Widget _buildMenuButton(BuildContext context, String text, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16), // Adjusted padding for drawer
+      padding: const EdgeInsets.symmetric(horizontal: 16), 
       child: SizedBox(
         width: double.infinity, 
         child: Container(
@@ -243,7 +139,7 @@ class MenuScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: buttonBrown,
             border: Border.all(color: Colors.black, width: 2),
-            borderRadius: BorderRadius.circular(4), // Subtle rounding
+            borderRadius: BorderRadius.circular(4), 
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.3),
@@ -277,26 +173,28 @@ class MenuScreen extends StatelessWidget {
   Widget _buildUnselectedNavItem(BuildContext context, String assetPath, int index) {
      return GestureDetector(
       onTap: () {
-        if (index == 1) {
-             Navigator.push(
+        if (index == 0) {
+             // Already on Menu (Left)
+        } else if (index == 1) {
+             Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
         } else if (index == 2) {
-             Navigator.push(
+             Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const TransactionScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
         }
       },
       child: Container(
-        width: 60, // Increased from 50
-        height: 60, // Increased from 50
+        width: 60, 
+        height: 60, 
         decoration: const BoxDecoration(
           color: Color(0xFFD9D9D9),
           shape: BoxShape.circle,
         ),
-         padding: const EdgeInsets.all(8), // Reduced from 12
+         padding: const EdgeInsets.all(8), 
          child: Image.asset(
             assetPath,
             fit: BoxFit.contain,

@@ -3,9 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../landing/landing_screen.dart';
+import '../../utils/slide_route.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key}); // Remove const to allow GlobalKey
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Colors extracted/approximated from design
   static const Color appGreen = Color(0xFF555E40);
@@ -16,6 +19,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign key
+      drawer: const MenuScreen(), // Add the Drawer
+      endDrawer: TransactionScreen(), // Right Drawer (Transaction)
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -194,15 +200,11 @@ class HomeScreen extends StatelessWidget {
      return GestureDetector(
       onTap: () {
         if (index == 0) {
-             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MenuScreen()),
-              );
+             // Open Drawer
+             _scaffoldKey.currentState?.openDrawer();
         } else if (index == 2) {
-             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionScreen()),
-              );
+             // Open End Drawer (Transaction)
+             _scaffoldKey.currentState?.openEndDrawer();
         }
       },
       child: Container(

@@ -39,7 +39,7 @@ class HomeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bandhavgarh Safari',
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

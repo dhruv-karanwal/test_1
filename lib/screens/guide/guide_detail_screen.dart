@@ -6,6 +6,7 @@ import '../home/home_screen.dart';
 import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/slide_route.dart';
 
 class GuideDetailApp extends StatelessWidget {
   const GuideDetailApp({super.key});
@@ -33,6 +34,8 @@ class GuideDetailScreen extends StatefulWidget {
 }
 
 class _GuideDetailScreenState extends State<GuideDetailScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // --- COLORS ---
   static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
   static const Color mustardYellow = Color(0xFFE4C939); // Search Bar
@@ -48,26 +51,19 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
 
   void _onItemTapped(int index) {
     if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MenuScreen()),
-      );
+      _scaffoldKey.currentState?.openDrawer();
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
         (route) => false, // Remove all back stack to make Home the root
       );
     } else if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const TransactionScreen()),
-      );
+       _scaffoldKey.currentState?.openEndDrawer();
     } else {
       setState(() {
         _selectedIndex = index;
       });
-     debugPrint("Selected index: $index");
     }
   }
 
@@ -81,6 +77,9 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         toolbarHeight: 93,

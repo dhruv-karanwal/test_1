@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../menu/menu_screen.dart';
+import '../home/home_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 
 
@@ -32,6 +35,8 @@ class AddRosterScreen extends StatefulWidget {
 }
 
 class _AddRosterScreenState extends State<AddRosterScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // Colors extracted/approximated from description
   static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
   static const Color cardBackground = Color(0xCC5E4B35); // Semi-transparent brown/olive
@@ -64,10 +69,21 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    debugPrint("Selected index: $index");
+    if (index == 0) {
+      _scaffoldKey.currentState?.openDrawer();
+    } else if (index == 1) {
+       Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()), // Import might be needed if not present
+        (route) => false,
+      );
+    } else if (index == 2) {
+      _scaffoldKey.currentState?.openEndDrawer();
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   Future<void> _saveRoster() async {
@@ -130,6 +146,9 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(), // Import MenuScreen if needed
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         toolbarHeight: 93,

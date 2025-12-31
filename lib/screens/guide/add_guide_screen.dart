@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../menu/menu_screen.dart';
+import '../home/home_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 class AddGuideApp extends StatelessWidget {
   const AddGuideApp({super.key});
@@ -30,6 +33,8 @@ class AddGuideScreen extends StatefulWidget {
 }
 
 class _AddGuideScreenState extends State<AddGuideScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // Colors extracted/approximated from description
   static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
   static const Color cardBackground = Color(0xCC5E4B35); // Semi-transparent brown/olive
@@ -60,10 +65,21 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    debugPrint("Selected index: $index");
+    if (index == 0) {
+      _scaffoldKey.currentState?.openDrawer();
+    } else if (index == 1) {
+       Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false,
+      );
+    } else if (index == 2) {
+      _scaffoldKey.currentState?.openEndDrawer();
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   Future<void> _saveGuide() async {
@@ -119,6 +135,9 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         toolbarHeight: 93,
