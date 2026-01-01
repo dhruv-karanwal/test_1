@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
             child: CircleAvatar(
               radius: 24,
               backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/logo.png'), 
+              backgroundImage: const AssetImage('assets/images/logo.png'), 
             ),
           ),
         ],
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildUnselectedNavItem(context, 'assets/nav_menu.png', 0), // Menu (Left)
+            _buildUnselectedNavItem(context, 'assets/images/nav_menu.png', 0), // Menu (Left)
 
             // Center (Home) - Selected
             GestureDetector(
@@ -145,14 +145,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(12),
                   child: Image.asset(
-                    'assets/nav_home_new.png',
+                    'assets/images/nav_home_new.png',
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
             
-            _buildUnselectedNavItem(context, 'assets/transaction.png', 2), // Transactions
+            _buildUnselectedNavItem(context, 'assets/images/transaction.png', 2), // Transactions
           ],
         ),
       ),

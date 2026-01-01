@@ -134,7 +134,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
             child: CircleAvatar(
               radius: 30, // Increased size
               backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/logo.png'),
+              backgroundImage: const AssetImage('assets/images/logo.png'),
             ),
           )
         ],
@@ -147,12 +147,12 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: Colors.black.withOpacity(0.3), // Slight dark overlay
+              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay matches Home
             ),
           ),
 
@@ -295,7 +295,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                                     );
                                   },
                                   child: Image.asset(
-                                    'assets/edit_icon.png',
+                                    'assets/images/edit_icon.png',
                                     width: 20, 
                                     height: 20,
                                     color: Colors.white, 
@@ -366,9 +366,9 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(0, 'assets/nav_menu.png'),
-            _buildNavItem(1, 'assets/nav_home_new.png'), 
-            _buildNavItem(2, 'assets/transaction.png'),
+            _buildNavItem(0, 'assets/images/nav_menu.png'),
+            _buildNavItem(1, 'assets/images/nav_home_new.png'), 
+            _buildNavItem(2, 'assets/images/transaction.png'),
           ],
         ),
       ),

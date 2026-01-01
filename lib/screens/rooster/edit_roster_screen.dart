@@ -198,7 +198,7 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
             child: CircleAvatar(
               radius: 30, 
               backgroundImage: const AssetImage(
-                 'assets/logo.png', 
+                 'assets/images/logo.png', 
               ), 
               backgroundColor: Colors.white,
             ),
@@ -219,13 +219,13 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/background.png',
+                  'assets/images/background.png',
                 ), 
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: Colors.black.withOpacity(0.3),
+              color: const Color(0xFF555E40).withOpacity(0.6),
             ),
           ),
 
@@ -296,8 +296,9 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
                               color: qrPlaceholder,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Center(
-                                child: Icon(Icons.qr_code_2, size: 40, color: Colors.black54)
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('assets/images/qr_code.png', fit: BoxFit.contain),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -390,9 +391,9 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(0, 'assets/nav_menu.png'),
-            _buildNavItem(1, 'assets/nav_home_new.png'), 
-            _buildNavItem(2, 'assets/transaction.png'),
+            _buildNavItem(0, 'assets/images/nav_menu.png'),
+            _buildNavItem(1, 'assets/images/nav_home_new.png'), 
+            _buildNavItem(2, 'assets/images/transaction.png'),
           ],
         ),
       ),

@@ -67,7 +67,7 @@ class HotelListScreen extends StatelessWidget {
             child: CircleAvatar(
               radius: 24, // Consistent size
               backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/logo.png'), 
+              backgroundImage: const AssetImage('assets/images/logo.png'), 
             ),
           ),
         ],
@@ -95,7 +95,7 @@ class HotelListScreen extends StatelessWidget {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -190,7 +190,7 @@ class HotelListScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(color: Colors.black, width: 1),
                                   image: const DecorationImage(
-                                    image: AssetImage('assets/hotel_placeholder.png'),
+                                    image: AssetImage('assets/images/hotel_placeholder.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'permit_id_screen.dart';
 import 'booking_confirmation_screen.dart';
 import '../home/home_screen.dart';
+import '../../utils/fade_route.dart';
 
 class EntryChoiceScreen extends StatefulWidget {
   const EntryChoiceScreen({super.key});
@@ -25,7 +26,8 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
   // Colors
   static const Color appGreen = Color(0xFF555E40);
   static const Color headerOrange = Color(0xFFFF8C00); // Orange for toggle/header active
-  static const Color cardBrown = Color(0xFF5E4B35); 
+  static const Color headerGreen = Color(0xFF3A4F1F); // Darker green strip from AddRoster
+  static const Color cardBrown = Color(0xCC5E4B35); // Matches AddRoster cardBackground
   static const Color inputBg = Color(0xFFF5F5F0);
   static const Color buttonBrown = Color(0xFF5E4B35);
 
@@ -42,13 +44,9 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
 
   void _onToggle(bool isDriverByChoice) {
      if (isDriverByChoice) {
-       // Navigate to Permit ID Screen immediately as per User Request "once the toggle is changed to driver by choice the next permit id page"
-       // Or simpler: Toggle state, and if true, push replacement? 
-       // User said: "one is of normal entry, and once the toggle is changed to driver by choice the next permit id page"
-       // This implies clicking the toggle button navigates.
        Navigator.pushReplacement(
          context,
-         MaterialPageRoute(builder: (context) => const PermitIdScreen()),
+         FadeRoute(page: const PermitIdScreen()),
        );
      }
   }
@@ -70,26 +68,31 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
     return Scaffold(
       backgroundColor: appGreen,
       appBar: AppBar(
+        toolbarHeight: 93,
         backgroundColor: appGreen,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back, color: Colors.white),
+          child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
         ),
-        title: Row(
-          children: [
-             const Text(
-              "BANDHAVGARH SAFARI",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+        title: Text(
+          "BANDHAVGARH SAFARI",
+          style: GoogleFonts.langar(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundColor: Colors.transparent,
+              backgroundImage: const AssetImage('assets/images/logo.png'), 
             ),
-             const SizedBox(width: 8),
-            Image.asset('assets/logo.png', height: 30),
-          ],
-        ),
+          ),
+        ],
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -97,11 +100,11 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
            Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/background.png'),
+                  image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Container(color: appGreen.withOpacity(0.85)),
+              child: Container(color: appGreen.withOpacity(0.6)),
             ),
 
           SingleChildScrollView(
@@ -114,11 +117,12 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                   // Toggle Header
                   Container(
                     width: double.infinity,
-                    height: 40,
+                    height: 50, 
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(25),
                     ),
+                    padding: const EdgeInsets.all(4), 
                     child: Row(
                       children: [
                         Expanded(
@@ -127,12 +131,16 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                             child: Container(
                                decoration: BoxDecoration(
                                 color: !_isDriverByChoice ? headerOrange : Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(21),
                               ),
                               child: Center(
                                 child: Text(
                                   "NORMAL ENTRY",
-                                  style: GoogleFonts.langar(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black),
+                                  style: GoogleFonts.langar(
+                                    fontWeight: FontWeight.bold, 
+                                    fontSize: 14, 
+                                    color: Colors.black
+                                  ),
                                 ),
                               ),
                             ),
@@ -140,16 +148,20 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                         ),
                         Expanded(
                           child: GestureDetector(
-                             onTap: () => _onToggle(true), // Navigate on click
+                             onTap: () => _onToggle(true),
                              child: Container(
                                decoration: BoxDecoration(
                                 color: _isDriverByChoice ? headerOrange : Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(21),
                               ),
                               child: Center(
                                 child: Text(
                                   "DRIVER BY CHOICE",
-                                  style: GoogleFonts.langar(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black),
+                                  style: GoogleFonts.langar(
+                                    fontWeight: FontWeight.bold, 
+                                    fontSize: 14, 
+                                    color: Colors.black
+                                  ),
                                 ),
                               ),
                             ),
@@ -163,21 +175,28 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
 
                    // Customer Details Form
                    Container(
-                     padding: const EdgeInsets.all(16),
+                     padding: const EdgeInsets.all(20),
                      decoration: BoxDecoration(
-                       color: cardBrown.withOpacity(0.9),
-                       borderRadius: BorderRadius.circular(20),
+                       color: cardBrown, 
+                       borderRadius: BorderRadius.circular(22),
                      ),
                      child: Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
                           Center(
-                            child: Text(
-                              "CUSTOMER DETAILS",
-                              style: GoogleFonts.langar(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                              decoration: BoxDecoration(
+                                color: headerGreen,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                "CUSTOMER DETAILS",
+                                style: GoogleFonts.langar(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 20),
                           
                           _buildInput("NAME", _nameController),
                           const SizedBox(height: 12),
@@ -187,25 +206,31 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                           const SizedBox(height: 12),
                           Row(
                             children: [
-                              Expanded(child: _buildInput("TIME SLOT", _timeController)),
+                              Expanded(flex: 4, child: _buildInput("TIME SLOT", _timeController)), 
                               const SizedBox(width: 12),
-                              Expanded(child: _buildInput("ZONE", _zoneController)),
+                              Expanded(flex: 3, child: _buildInput("ZONE", _zoneController)),
                             ],
                           ),
                           const SizedBox(height: 12),
                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)), // Match input style
+                              height: 45,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF5F5F0), 
+                                borderRadius: BorderRadius.circular(4)
+                              ), 
                               padding: const EdgeInsets.symmetric(horizontal: 10),
                               alignment: Alignment.centerLeft,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("ROOSTER ALLOTED :", style: GoogleFonts.langar(fontWeight: FontWeight.bold, color: Colors.black)),
+                                  Text("ROOSTER ALLOTED :", style: GoogleFonts.langar(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14)),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    decoration: BoxDecoration(color: headerOrange, borderRadius: BorderRadius.circular(4)),
-                                    child: Text("12", style: GoogleFonts.langar(fontWeight: FontWeight.bold)),
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: headerOrange, 
+                                      borderRadius: BorderRadius.circular(4)
+                                    ),
+                                    child: Text("12", style: GoogleFonts.langar(fontWeight: FontWeight.bold, fontSize: 16)),
                                   )
                                 ],
                               ),
@@ -213,20 +238,13 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                            const SizedBox(height: 12),
                            _buildInput("AMOUNT", _amountController, isNumber: true),
 
-                           const SizedBox(height: 20),
+                           const SizedBox(height: 24),
                            // QR Placeholder
                            Center(
-                             child: Container(
-                               width: 150,
-                               height: 100,
-                               decoration: BoxDecoration(
-                                 color: Colors.white,
-                                 borderRadius: BorderRadius.circular(10),
+                               child: Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: Image.asset('assets/images/qr_code.png', fit: BoxFit.contain),
                                ),
-                               child: Center(
-                                 child: Text("QR", style: GoogleFonts.langar(fontSize: 18, fontWeight: FontWeight.bold)),
-                               ),
-                             ),
                            ),
                        ],
                      ),
@@ -258,7 +276,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
         ],
       ),
        bottomNavigationBar: Container(
-        height: 72,
+        height: 100,
         decoration: const BoxDecoration(
           color: appGreen,
           borderRadius: BorderRadius.only(
@@ -269,9 +287,47 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem('assets/nav_menu.png'),
-            _buildNavItem('assets/nav_home_new.png', isHome: true, context: context), 
-            _buildNavItem('assets/transaction.png'), 
+            _buildNavItem('assets/images/nav_menu.png', size: 60),
+            
+            // Home (Center)
+            GestureDetector(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  (route) => false,
+                );
+              },
+              child: Container(
+                width: 70,
+                height: 70,
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFD4AF37), // activeNavInner
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(12),
+                  child: Image.asset(
+                    'assets/images/nav_home_new.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+
+            _buildNavItem('assets/images/transaction.png', size: 60), 
           ],
         ),
       ),
@@ -280,7 +336,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
 
   Widget _buildInput(String hint, TextEditingController controller, {bool isPhone = false, bool isNumber = false}) {
      return Container(
-       height: 40,
+       height: 45,
        decoration: BoxDecoration(
          color: inputBg,
          borderRadius: BorderRadius.circular(4),
@@ -294,33 +350,26 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
          decoration: InputDecoration(
            border: InputBorder.none,
            hintText: hint,
-           hintStyle: GoogleFonts.langar(color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 12),
-           contentPadding: const EdgeInsets.only(bottom: 8),
+           hintStyle: GoogleFonts.langar(color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 13), 
+           contentPadding: const EdgeInsets.only(bottom: 6), 
          ),
        ),
      );
   }
 
-   Widget _buildNavItem(String assetPath, {bool isHome = false, BuildContext? context}) {
+   Widget _buildNavItem(String assetPath, {double size = 50}) {
      return GestureDetector(
        onTap: () {
-         if (isHome && context != null) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-              (route) => false,
-            );
-         }
+         // Placeholder for menu/trans
        },
        child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: isHome ? Colors.white : const Color(0xFFD9D9D9),
+          width: size,
+          height: size,
+          decoration: const BoxDecoration(
+            color: Color(0xFFD9D9D9),
             shape: BoxShape.circle,
-            border: isHome ? Border.all(color: const Color(0xFFD4AF37), width: 3) : null,
           ),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(8),
           child: Image.asset(assetPath, fit: BoxFit.contain),
         ),
      );

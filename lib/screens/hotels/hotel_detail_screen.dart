@@ -39,7 +39,7 @@ class HotelDetailScreen extends StatelessWidget {
             child: SizedBox(
               width: 36,
               height: 36,
-              child: Image.asset("assets/logo.png", fit: BoxFit.contain
+              child: Image.asset("assets/images/logo.png", fit: BoxFit.contain
               ),
               ),
             ),
@@ -60,14 +60,24 @@ class HotelDetailScreen extends StatelessWidget {
   // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
   // bottomNavigationBar: const CustomBottomNav(),
 
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            fit: BoxFit.cover,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+           // 1. BACKGROUND
+          Container(
+             decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Container(
+              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay
+            ),
           ),
-        ),
-        child: Center(
+
+          // 2. CONTENT
+          Center(
           child: SingleChildScrollView(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -126,7 +136,7 @@ class HotelDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: Colors.white, width: 2),
                       image: const DecorationImage(
-                        image: AssetImage('assets/hotel_placeholder.png'),
+                        image: AssetImage('assets/images/hotel_placeholder.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -192,6 +202,7 @@ class HotelDetailScreen extends StatelessWidget {
             ),
           ),
         ),
+        ],
       ),
     );
   }

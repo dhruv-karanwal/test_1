@@ -42,7 +42,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
             child: SizedBox(
               width: 36,
               height: 36,
-              child: Image.asset("assets/logo.png", fit: BoxFit.contain), 
+              child: Image.asset("assets/images/logo.png", fit: BoxFit.contain), 
             ),
           ),
         ],
@@ -55,7 +55,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
               ),
             ),

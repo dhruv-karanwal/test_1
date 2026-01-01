@@ -32,9 +32,9 @@ class CustomBottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(context, 'assets/nav_menu.png', 0),
-          _buildNavItem(context, 'assets/nav_home_new.png', 1),
-          _buildNavItem(context, 'assets/transaction.png', 2),
+          _buildNavItem(context, 'assets/images/nav_menu.png', 0),
+          _buildNavItem(context, 'assets/images/nav_home_new.png', 1),
+          _buildNavItem(context, 'assets/images/transaction.png', 2),
         ],
       ),
     );

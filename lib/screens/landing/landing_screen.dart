@@ -13,7 +13,7 @@ class LandingScreen extends StatelessWidget {
         children: [
           // 1. BACKGROUND IMAGE
           Image.asset(
-            'assets/landing_bg.png',
+            'assets/images/landing_bg.png',
             fit: BoxFit.cover,
           ),
           
@@ -24,7 +24,7 @@ class LandingScreen extends StatelessWidget {
             right: 0,
             child: Center(
               child: Image.asset(
-                'assets/landing_logo.png',
+                'assets/images/landing_logo.png',
                 width: 250, // Adjust size as needed
                 fit: BoxFit.contain,
               ),
