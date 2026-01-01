@@ -5,6 +5,7 @@ import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../transaction/payment_dialog.dart';
+import '../../utils/fade_route.dart';
 
 
 
@@ -75,7 +76,7 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()), // Import might be needed if not present
+        FadeRoute(page: HomeScreen()), // Import might be needed if not present
         (route) => false,
       );
     } else if (index == 2) {

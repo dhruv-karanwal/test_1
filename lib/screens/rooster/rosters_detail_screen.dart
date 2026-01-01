@@ -7,6 +7,7 @@ import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/slide_route.dart';
+import '../../utils/fade_route.dart';
 
 
 
@@ -57,7 +58,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        FadeRoute(page: HomeScreen()),
         (route) => false,
       );
     } else if (index == 2) {
@@ -72,7 +73,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
   void _navigateToAddRoster() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AddRosterScreen()),
+      FadeRoute(page: const AddRosterScreen()),
     );
   }
 
@@ -289,8 +290,8 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EditRosterScreen(rosterNumber: rosterNum),
+                                      FadeRoute(
+                                        page: EditRosterScreen(rosterNumber: rosterNum),
                                       ),
                                     );
                                   },

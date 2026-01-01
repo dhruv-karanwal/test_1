@@ -7,11 +7,14 @@ class FadeRoute extends PageRouteBuilder {
       : super(
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var curve = Curves.easeInOut;
+            var curvedAnimation = CurvedAnimation(parent: animation, curve: curve);
             return FadeTransition(
-              opacity: animation,
+              opacity: curvedAnimation,
               child: child,
             );
           },
-          transitionDuration: const Duration(milliseconds: 300), // Smooth fade
+          transitionDuration: const Duration(milliseconds: 400),
+          reverseTransitionDuration: const Duration(milliseconds: 400),
         );
 }

@@ -59,7 +59,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
      // Navigate to Confirmation
      Navigator.push(
        context,
-       MaterialPageRoute(builder: (context) => const BookingConfirmationScreen()),
+       FadeRoute(page: const BookingConfirmationScreen()),
      );
   }
 
@@ -294,7 +294,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  FadeRoute(page: HomeScreen()),
                   (route) => false,
                 );
               },

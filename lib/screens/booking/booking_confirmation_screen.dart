@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../home/home_screen.dart';
+import '../../utils/fade_route.dart';
 
 class BookingConfirmationScreen extends StatelessWidget {
   const BookingConfirmationScreen({super.key});
@@ -24,7 +25,7 @@ class BookingConfirmationScreen extends StatelessWidget {
           onTap: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              FadeRoute(page: HomeScreen()),
               (route) => false,
             );
           },
@@ -190,7 +191,7 @@ class BookingConfirmationScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  FadeRoute(page: HomeScreen()),
                   (route) => false,
                 );
               },

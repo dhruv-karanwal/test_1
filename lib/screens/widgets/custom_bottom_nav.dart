@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../home/home_screen.dart';
+import '../../utils/fade_route.dart';
 
 class CustomBottomNav extends StatelessWidget {
   const CustomBottomNav({super.key});
@@ -56,7 +57,7 @@ class CustomBottomNav extends StatelessWidget {
         } else if (index == 1) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            FadeRoute(page: HomeScreen()),
             (route) => false,
           );
         } else if (index == 2) {

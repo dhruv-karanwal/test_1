@@ -6,7 +6,8 @@ import '../home/home_screen.dart';
 import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
 import '../transaction/transaction_screen.dart';
-import '../../utils/slide_route.dart';
+import '../../utils/fade_route.dart';
+
 
 class GuideDetailApp extends StatelessWidget {
   const GuideDetailApp({super.key});
@@ -55,7 +56,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        FadeRoute(page: HomeScreen()),
         (route) => false, // Remove all back stack to make Home the root
       );
     } else if (index == 2) {
@@ -70,7 +71,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
   void _navigateToAddGuide() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AddGuideScreen()),
+      FadeRoute(page: const AddGuideScreen()),
     );
   }
 
@@ -260,8 +261,8 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EditGuideScreen(guideNumber: guideNum),
+                                      FadeRoute(
+                                        page: EditGuideScreen(guideNumber: guideNum),
                                       ),
                                     );
                                   },

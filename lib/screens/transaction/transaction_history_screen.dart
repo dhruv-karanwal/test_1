@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
+import '../../utils/fade_route.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
   const TransactionHistoryScreen({super.key});
@@ -44,7 +45,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           onTap: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              FadeRoute(page: HomeScreen()),
               (route) => false,
             );
           },
@@ -274,7 +275,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
              // Go Home
              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                FadeRoute(page: HomeScreen()),
                 (route) => false,
              );
         }

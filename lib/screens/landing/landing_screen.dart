@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../home/home_screen.dart';
+import '../../utils/fade_route.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -42,7 +43,7 @@ class LandingScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    FadeRoute(page: HomeScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

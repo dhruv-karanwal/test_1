@@ -4,6 +4,7 @@ import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../landing/landing_screen.dart';
 import '../../utils/slide_route.dart';
+import '../../utils/fade_route.dart';
 import '../booking/entry_choice_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                  Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const LandingScreen()),
+                  FadeRoute(page: const LandingScreen()),
                   (route) => false,
                 );
               },
@@ -89,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                 _buildDashboardButton("BOOK A SAFARI", Icons.directions_car_filled_outlined, onTap: () {
                    Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EntryChoiceScreen()),
+                    FadeRoute(page: const EntryChoiceScreen()),
                   );
                 }),
                 const SizedBox(height: 24),

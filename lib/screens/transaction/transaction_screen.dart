@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
 import 'transaction_history_screen.dart';
+import '../../utils/fade_route.dart';
 
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({super.key});
@@ -107,7 +108,7 @@ class TransactionScreen extends StatelessWidget {
             _buildMenuButton(context, "TRANSACTION HISTORY", () {
                Navigator.push(
                  context,
-                 MaterialPageRoute(builder: (context) => const TransactionHistoryScreen()),
+                 FadeRoute(page: const TransactionHistoryScreen()),
                );
             }),
             const SizedBox(height: 16),

@@ -5,6 +5,7 @@ import '../widgets/custom_bottom_nav.dart';
 
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/fade_route.dart';
 
 class AddHotelScreen extends StatefulWidget {
   const AddHotelScreen({super.key});
@@ -117,8 +118,8 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) => HotelListScreen(),
+                          FadeRoute(
+                            page: HotelListScreen(),
                           ),
                           (route) => false,
                         );

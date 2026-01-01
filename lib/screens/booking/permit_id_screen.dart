@@ -37,7 +37,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
     // Navigate to Confirmation
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const BookingConfirmationScreen()),
+      FadeRoute(page: const BookingConfirmationScreen()),
     );
   }
 
@@ -263,7 +263,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  FadeRoute(page: HomeScreen()),
                   (route) => false,
                 );
               },

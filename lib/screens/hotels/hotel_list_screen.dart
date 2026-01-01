@@ -8,6 +8,7 @@ import '../widgets/custom_bottom_nav.dart';
 
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/fade_route.dart';
 
 class HotelListScreen extends StatelessWidget {
   HotelListScreen({super.key});
@@ -79,8 +80,8 @@ class HotelListScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const AddHotelScreen(),
+            FadeRoute(
+              page: const AddHotelScreen(),
             ),
           );
         },
@@ -221,8 +222,8 @@ class HotelListScreen extends StatelessWidget {
                                            onTap: () {
                                               Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
-                                                  builder: (context) => const HotelDetailScreen(hotelName: '',),
+                                                  FadeRoute(
+                                                  page: const HotelDetailScreen(hotelName: '',),
                                                   ),
                                                 );
                                            },
@@ -255,8 +256,8 @@ class HotelListScreen extends StatelessWidget {
                                             onTap: () {
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(
-                                                builder: (context) => const EditHotelScreen(),
+                                                FadeRoute(
+                                                page: const EditHotelScreen(),
                                                 ),
                                               );
                                             },

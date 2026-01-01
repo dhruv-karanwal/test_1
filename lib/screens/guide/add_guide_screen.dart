@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/fade_route.dart';
 
 class AddGuideApp extends StatelessWidget {
   const AddGuideApp({super.key});
@@ -70,7 +71,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        FadeRoute(page: HomeScreen()),
         (route) => false,
       );
     } else if (index == 2) {

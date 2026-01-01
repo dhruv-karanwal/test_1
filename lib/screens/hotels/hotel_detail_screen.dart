@@ -5,6 +5,7 @@ import '../widgets/custom_bottom_nav.dart';
 
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/fade_route.dart';
 
 class HotelDetailScreen extends StatelessWidget {
   final String hotelName;
@@ -51,8 +52,8 @@ class HotelDetailScreen extends StatelessWidget {
     onPressed: () {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => const EditHotelScreen(),
+        FadeRoute(
+          page: const EditHotelScreen(),
         ),
       );
     },
@@ -184,8 +185,8 @@ class HotelDetailScreen extends StatelessWidget {
                       onPressed: () {
                          Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditHotelScreen(),
+                          FadeRoute(
+                            page: const EditHotelScreen(),
                           ),
                         );
                       },

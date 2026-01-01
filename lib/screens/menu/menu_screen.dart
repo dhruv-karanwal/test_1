@@ -6,6 +6,7 @@ import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../hotels/hotel_list_screen.dart';
 import '../../utils/slide_route.dart';
+import '../../utils/fade_route.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -97,7 +98,7 @@ class MenuScreen extends StatelessWidget {
             Navigator.pop(context); // Close drawer
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
+              FadeRoute(page: const RosterDetailScreen()),
             );
           }),
           const SizedBox(height: 16),
@@ -105,7 +106,7 @@ class MenuScreen extends StatelessWidget {
              Navigator.pop(context); // Close drawer
              Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const RosterDetailScreen()),
+              FadeRoute(page: const RosterDetailScreen()),
             );
           }),
           const SizedBox(height: 16),
@@ -113,7 +114,7 @@ class MenuScreen extends StatelessWidget {
             Navigator.pop(context); // Close drawer
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HotelListScreen()),
+              FadeRoute(page: HotelListScreen()),
             );
           }),
           const SizedBox(height: 16),
@@ -121,7 +122,7 @@ class MenuScreen extends StatelessWidget {
             Navigator.pop(context); // Close drawer
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const GuideDetailScreen()),
+              FadeRoute(page: const GuideDetailScreen()),
             );
           }),
         ],
@@ -178,12 +179,12 @@ class MenuScreen extends StatelessWidget {
         } else if (index == 1) {
              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                FadeRoute(page: HomeScreen()),
               );
         } else if (index == 2) {
              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                FadeRoute(page: HomeScreen()),
               );
         }
       },
