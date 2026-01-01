@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
+import 'transaction_history_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({super.key});
@@ -104,10 +105,10 @@ class TransactionScreen extends StatelessWidget {
 
             // MENU BUTTONS
             _buildMenuButton(context, "TRANSACTION HISTORY", () {
-               // Scaffolds messenger might not show if drawer covers it, but usually fine.
-               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Transaction History - Coming Soon")),
-              );
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => const TransactionHistoryScreen()),
+               );
             }),
             const SizedBox(height: 16),
             _buildMenuButton(context, "OTHER", () {

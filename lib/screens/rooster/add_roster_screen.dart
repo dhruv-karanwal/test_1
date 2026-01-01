@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../transaction/payment_dialog.dart';
 
 
 
@@ -117,30 +118,68 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
         'createdAt': FieldValue.serverTimestamp(),
       };
 
-      await FirebaseFirestore.instance
+      double charges = double.tryParse(_resortChargesController.text) ?? 0;
+
+      if (charges > 0) {
+        // Show Payment Dialog
+        if (mounted) {
+           showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => PaymentDialog(
+              amount: charges,
+              payerName: _driverNameController.text, // Assuming driver pays? Or Owner? Using driver for now.
+              description: "Roster: ${_rosterNoController.text} - Resort Charges",
+              onPaymentSuccess: () {
+                 // Already saved to firestore in dialog.
+                 // Now save roster
+                 _performSave(rosterData);
+              },
+            ),
+          );
+        }
+      } else {
+        // No charges, just save roster
+        await _performSave(rosterData);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error preparing roster: $e')),
+        );
+         setState(() {
+          _isSaving = false;
+        });
+      }
+    } 
+  }
+
+  Future<void> _performSave(Map<String, dynamic> rosterData) async {
+     try {
+       await FirebaseFirestore.instance
           .collection('roosters')
-          .doc(_rosterNoController.text) // Use Roster No as Document ID
+          .doc(_rosterNoController.text) 
           .set(rosterData);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Roster saved successfully!')),
         );
-        Navigator.pop(context); // Go back to list
+        Navigator.pop(context); 
       }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error saving roster: $e')),
-        );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-        });
-      }
-    }
+     } catch (e) {
+        if (mounted) {
+           ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(content: Text('Error saving roster details: $e')),
+           );
+        }
+     } finally {
+        if (mounted) {
+          setState(() {
+            _isSaving = false;
+          });
+        }
+     }
   }
 
   @override

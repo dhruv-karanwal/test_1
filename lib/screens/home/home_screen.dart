@@ -4,6 +4,7 @@ import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../landing/landing_screen.dart';
 import '../../utils/slide_route.dart';
+import '../booking/entry_choice_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key}); // Remove const to allow GlobalKey
@@ -85,7 +86,12 @@ class HomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 100), // Offset for AppBar
                 
-                _buildDashboardButton("BOOK A SAFARI", Icons.directions_car_filled_outlined),
+                _buildDashboardButton("BOOK A SAFARI", Icons.directions_car_filled_outlined, onTap: () {
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EntryChoiceScreen()),
+                  );
+                }),
                 const SizedBox(height: 24),
                 
                 _buildDashboardButton("WAITING LIST", Icons.directions_car_filled_outlined),
@@ -153,8 +159,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDashboardButton(String text, IconData icon) {
-    return Container(
+  Widget _buildDashboardButton(String text, IconData icon, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       width: double.infinity,
       height: 140, // Increased height to look bigger
       decoration: BoxDecoration(
@@ -192,6 +200,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 96), // 72*2 + 24 = 96 approx balance
         ],
+      ),
       ),
     );
   }
