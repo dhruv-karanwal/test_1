@@ -6,6 +6,8 @@ import '../landing/landing_screen.dart';
 import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
 import '../booking/entry_choice_screen.dart';
+import '../waiting_list/waiting_list_customer_screen.dart';
+import '../completed_safari/completed_safari_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key}); // Remove const to allow GlobalKey
@@ -95,10 +97,20 @@ class HomeScreen extends StatelessWidget {
                 }),
                 const SizedBox(height: 24),
                 
-                _buildDashboardButton("WAITING LIST", Icons.directions_car_filled_outlined),
+                _buildDashboardButton("WAITING LIST", Icons.directions_car_filled_outlined, onTap: () {
+                    Navigator.push(
+                    context,
+                    FadeRoute(page: const WaitingListCustomerScreen()),
+                  );
+                }),
                 const SizedBox(height: 24),
                 
-                _buildDashboardButton("COMPLETED SAFARIS", Icons.directions_car_filled_outlined),
+                _buildDashboardButton("COMPLETED SAFARIS", Icons.directions_car_filled_outlined, onTap: () {
+                   Navigator.push(
+                    context,
+                    FadeRoute(page: const CompletedSafariScreen()),
+                  );
+                }),
               ],
             ),
           ),
