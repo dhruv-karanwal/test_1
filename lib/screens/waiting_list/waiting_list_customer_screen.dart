@@ -4,30 +4,48 @@ import '../../utils/fade_route.dart';
 import 'waiting_list_driver_screen.dart';
 import 'waiting_list_guide_screen.dart';
 
-class WaitingListCustomerScreen extends StatelessWidget {
+class WaitingListCustomerScreen extends StatefulWidget {
   const WaitingListCustomerScreen({super.key});
 
+  @override
+  State<WaitingListCustomerScreen> createState() => _WaitingListCustomerScreenState();
+}
+
+class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
   // Colors based on common app theme
   static const Color appGreen = Color(0xFF555E40);
   static const Color cardBrown = Color(0xFF5E4B35); // Dark brown for the form card
   static const Color bannerGold = Color(0xFFD4AF37); // Gold for "WAITING LIST"
   static const Color inputFieldColor = Color(0xFFD9D9D9); // Light grey/white for inputs
-  static const Color buttonGreen = Color(0xFF388E3C); // Dark green for buttons (from image roughly) but standardizing to previous used colors if needed. Actually image shows dark green/brown buttons.
+  static const Color buttonGreen = Color(0xFF388E3C); 
   static const Color activeNavInner = Color(0xFFD4AF37);
 
   // Controllers
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _hotelController = TextEditingController();
-  final TextEditingController _timeSlotController = TextEditingController();
   final TextEditingController _zoneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  
+  // Dropdown selection
+  String? _selectedTimeSlot;
+  final List<String> _timeSlots = ["Morning", "Evening"];
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _contactController.dispose();
+    _hotelController.dispose();
+    _zoneController.dispose();
+    _dateController.dispose();
+    super.dispose();
+  }
 
   void _validateAndNavigate(BuildContext context, Widget targetScreen) {
     if (_nameController.text.isNotEmpty &&
         _contactController.text.isNotEmpty &&
         _hotelController.text.isNotEmpty &&
-        _timeSlotController.text.isNotEmpty &&
+        _selectedTimeSlot != null &&
         _zoneController.text.isNotEmpty &&
         _dateController.text.isNotEmpty) {
       Navigator.push(
@@ -43,6 +61,38 @@ class WaitingListCustomerScreen extends StatelessWidget {
       );
     }
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: appGreen, // header background color
+              onPrimary: Colors.white, // header text color
+              onSurface: Colors.black, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: appGreen, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      setState(() {
+        _dateController.text = "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +191,7 @@ class WaitingListCustomerScreen extends StatelessWidget {
                               color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                             // decoration: TextDecoration.underline,
+                              // decoration: TextDecoration.underline,
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -153,12 +203,22 @@ class WaitingListCustomerScreen extends StatelessWidget {
                           // Row for Time Slot and Zone
                           Row(
                             children: [
-                              Expanded(child: _buildTextField("TIME SLOT", _timeSlotController)),
+                              Expanded(
+                                child: _buildDropdownField("TIME SLOT"),
+                              ),
                               const SizedBox(width: 16),
                               Expanded(child: _buildTextField("ZONE", _zoneController)),
                             ],
                           ),
-                           _buildTextField("DATE", _dateController, widthFactor: 0.5, alignment: Alignment.centerLeft),
+                           _buildTextField(
+                            "DATE", 
+                            _dateController, 
+                            widthFactor: 0.5, 
+                            alignment: Alignment.centerLeft,
+                            readOnly: true,
+                            onTap: () => _selectDate(context),
+                            suffixIcon: const Icon(Icons.calendar_today, color: Colors.black54, size: 20),
+                          ),
 
 
                           const SizedBox(height: 30),
@@ -237,7 +297,55 @@ class WaitingListCustomerScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {double widthFactor = 1.0, Alignment alignment = Alignment.center}) {
+  Widget _buildDropdownField(String hintText) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: inputFieldColor,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        width: double.infinity,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value: _selectedTimeSlot,
+            hint: Text(
+              hintText,
+              style: GoogleFonts.langar(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            icon: const Icon(Icons.arrow_drop_down, color: Colors.black54),
+            isExpanded: true,
+            dropdownColor: inputFieldColor,
+            items: _timeSlots.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: GoogleFonts.langar(color: Colors.black, fontSize: 16),
+                ),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                _selectedTimeSlot = newValue;
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(
+    String label, 
+    TextEditingController controller, {
+    double widthFactor = 1.0, 
+    Alignment alignment = Alignment.center,
+    bool readOnly = false,
+    VoidCallback? onTap,
+    Widget? suffixIcon,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Align(
@@ -251,12 +359,15 @@ class WaitingListCustomerScreen extends StatelessWidget {
             ),
             child: TextField(
               controller: controller,
+              readOnly: readOnly,
+              onTap: onTap,
               style: GoogleFonts.langar(color: Colors.black, fontSize: 16),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 border: InputBorder.none,
                 hintText: label,
                 hintStyle: GoogleFonts.langar(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+                suffixIcon: suffixIcon,
               ),
             ),
           ),

@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                 _buildDashboardButton("WAITING LIST", Icons.directions_car_filled_outlined, onTap: () {
                     Navigator.push(
                     context,
-                    FadeRoute(page: const WaitingListCustomerScreen()),
+                    FadeRoute(page: WaitingListCustomerScreen()),
                   );
                 }),
                 const SizedBox(height: 24),

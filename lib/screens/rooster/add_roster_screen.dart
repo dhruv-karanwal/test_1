@@ -4,9 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
-import '../transaction/payment_dialog.dart';
 import '../../utils/fade_route.dart';
-
 
 
 class AddRosterApp extends StatelessWidget {
@@ -51,19 +49,26 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
   // Controllers
   final TextEditingController _rosterNoController = TextEditingController();
   final TextEditingController _driverNameController = TextEditingController();
-  final TextEditingController _resortChargesController = TextEditingController();
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _driverPhoneController = TextEditingController();
   final TextEditingController _ownerPhoneController = TextEditingController();
 
+  // State Variables
   bool _isSaving = false;
   int _selectedIndex = 1; // Default to Home (Center)
+  
+  // New Fields
+  int _capacity = 6;
+  final List<int> _capacityOptions = [6, 8];
+
+  String _rosterStatus = "Available";
+  final List<String> _statusOptions = ["Available", "Unavailable"];
+
 
   @override
   void dispose() {
     _rosterNoController.dispose();
     _driverNameController.dispose();
-    _resortChargesController.dispose();
     _ownerNameController.dispose();
     _driverPhoneController.dispose();
     _ownerPhoneController.dispose();
@@ -76,7 +81,7 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
     } else if (index == 1) {
        Navigator.pushAndRemoveUntil(
         context,
-        FadeRoute(page: HomeScreen()), // Import might be needed if not present
+        FadeRoute(page: HomeScreen()), 
         (route) => false,
       );
     } else if (index == 2) {
@@ -101,48 +106,24 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
     });
 
     try {
-      // Mapping to match Firestore Schema provided
       final Map<String, dynamic> rosterData = {
-        'availability': true,
-        'docDrivers': 1, // Default from schema screenshot
+        'availability': _rosterStatus == "Available", // Boolean based on string
+        'status': _rosterStatus, // String value too? logic from prompt
+        'capacity': _capacity,
+        'docDrivers': 1, 
         'driverName': _driverNameController.text,
         'driverPhone': _driverPhoneController.text,
-        'licensePlate': _rosterNoController.text, // Assuming Roster No maps here? Or separate? 
-        // Screenshot shows "roosterNo" and "licensePlate". Using RosterNo for both for now or just roosterNo.
-        // Actually screenshot has "roosterNo": "RJ14-AB-1234". Let's use that.
+        'licensePlate': _rosterNoController.text, 
         'roosterNo': _rosterNoController.text,
         'ownerName': _ownerNameController.text,
         'ownerPhone': _ownerPhoneController.text,
         'qrCodeUrl': "",
-        'resortCharges': _resortChargesController.text, // Not in schema but in UI. Adding it.
         'totalDrivers': 1,
         'createdAt': FieldValue.serverTimestamp(),
       };
 
-      double charges = double.tryParse(_resortChargesController.text) ?? 0;
+      await _performSave(rosterData);
 
-      if (charges > 0) {
-        // Show Payment Dialog
-        if (mounted) {
-           showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => PaymentDialog(
-              amount: charges,
-              payerName: _driverNameController.text, // Assuming driver pays? Or Owner? Using driver for now.
-              description: "Roster: ${_rosterNoController.text} - Resort Charges",
-              onPaymentSuccess: () {
-                 // Already saved to firestore in dialog.
-                 // Now save roster
-                 _performSave(rosterData);
-              },
-            ),
-          );
-        }
-      } else {
-        // No charges, just save roster
-        await _performSave(rosterData);
-      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -187,7 +168,7 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const MenuScreen(), // Import MenuScreen if needed
+      drawer: const MenuScreen(), 
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -210,18 +191,18 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 22, // Visually matched
+            fontSize: 22, 
           ),
         ),
-        centerTitle: false, // Slightly left-center
+        centerTitle: false, 
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
-              radius: 30, // Increased size
+              radius: 30, 
               backgroundImage: const AssetImage(
                  'assets/images/logo.png', 
-              ), // Local asset logo
+              ), 
               backgroundColor: Colors.white,
             ),
           ),
@@ -236,17 +217,16 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // BACKGROUND: Forest/Safari Texture
+          // BACKGROUND
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
                   'assets/images/background.png',
-                ), // Forest texture placeholder
+                ), 
                 fit: BoxFit.cover,
               ),
             ),
-            // Slight dark overlay for contrast
             child: Container(
               color: const Color(0xFF555E40).withOpacity(0.6),
             ),
@@ -256,14 +236,13 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
           SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 160.0, bottom: 20.0), // Adjust for AppBar height + spacing
+                padding: const EdgeInsets.only(top: 160.0, bottom: 20.0), 
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // FORM CONTAINER
                     Container(
                       width: 310,
-                      // height: 560, // Allow auto height or fix it if strict
                       constraints: const BoxConstraints(minHeight: 560),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -274,7 +253,6 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
 
-                          // Correction based on prompt: "Color: black" for DETAILS text
                            Container(
                             width: double.infinity,
                             height: 40,
@@ -299,7 +277,34 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                           const SizedBox(height: 12),
                           _buildInputField("DRIVER NAME", controller: _driverNameController),
                           const SizedBox(height: 12),
-                          _buildInputField("RESORT CHARGES", isNumeric: true, controller: _resortChargesController),
+                          // REPLACED Charges with Capacity & Status
+                          
+                          Row(
+                            children: [
+                               Expanded(
+                                child: _buildDropdown(
+                                  label: "CAPACITY",
+                                  value: _capacity,
+                                  items: _capacityOptions,
+                                  onChanged: (val) {
+                                    if(val != null) setState(() => _capacity = val);
+                                  }
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildDropdown(
+                                  label: "STATUS",
+                                  value: _rosterStatus,
+                                  items: _statusOptions,
+                                  onChanged: (val) {
+                                    if(val != null) setState(() => _rosterStatus = val);
+                                  }
+                                ),
+                              ),
+                            ],
+                          ),
+                          
                           const SizedBox(height: 12),
                           _buildInputField("OWNER NAME", controller: _ownerNameController),
                           const SizedBox(height: 16),
@@ -388,6 +393,60 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildDropdown<T>({required String label, required T value, required List<T> items, required ValueChanged<T?> onChanged}) {
+      return Container(
+        height: 44,
+        decoration: BoxDecoration(
+          color: inputBackground,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<T>(
+            value: value,
+            isExpanded: true,
+             icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((T item) {
+                return Align(
+                   alignment: Alignment.centerLeft,
+                    child: Text(
+                    "$item", // Primitive toString
+                    style: GoogleFonts.langar(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            items: items.map((T item) {
+              return DropdownMenuItem<T>(
+                value: item,
+                child: Text(
+                  "$item",
+                  style: GoogleFonts.langar(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: onChanged,
+            hint: Text(
+              label,
+               style: GoogleFonts.langar(
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontSize: 12, 
+              ),
+            ),
+          ),
+        ),
+      );
   }
 
   Widget _buildInputField(String hint, {bool isNumeric = false, bool isPhone = false, required TextEditingController controller}) {

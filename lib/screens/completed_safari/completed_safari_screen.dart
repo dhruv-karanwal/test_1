@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
+import '../widgets/custom_bottom_nav.dart';
 
 class CompletedSafariScreen extends StatelessWidget {
   const CompletedSafariScreen({super.key});
@@ -14,6 +17,8 @@ class CompletedSafariScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -115,58 +120,7 @@ class CompletedSafariScreen extends StatelessWidget {
         ],
       ),
        // BOTTOM NAV
-      bottomNavigationBar: Container(
-        height: 100,
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem('assets/images/nav_menu.png', size: 60), 
-            
-            // Home (Center)
-            GestureDetector(
-              onTap: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-              child: Container(
-                width: 70,
-                height: 70,
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: activeNavInner,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(
-                    'assets/images/nav_home_new.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-
-            _buildNavItem('assets/images/transaction.png', size: 60), 
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomBottomNav(),
     );
   }
 
@@ -227,21 +181,5 @@ class CompletedSafariScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(String assetPath, {double size = 50}) {
-      return GestureDetector(
-        onTap: () {
-          // Placeholder for menu/trans
-        },
-        child: Container(
-           width: size,
-           height: size,
-           decoration: const BoxDecoration(
-             color: Color(0xFFD9D9D9),
-             shape: BoxShape.circle,
-           ),
-           padding: const EdgeInsets.all(8),
-           child: Image.asset(assetPath, fit: BoxFit.contain),
-         ),
-      );
-  }
+
 }

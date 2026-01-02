@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditRosterScreen extends StatefulWidget {
   final int rosterNumber; // Receive roster number
-  // final String docId; // Ideally we pass the docId to update, but for now just UI
   
   const EditRosterScreen({super.key, required this.rosterNumber});
 
@@ -30,13 +29,20 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
   // Controllers
   final TextEditingController _rosterNoController = TextEditingController();
   final TextEditingController _driverNameController = TextEditingController();
-  final TextEditingController _resortChargesController = TextEditingController();
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _driverPhoneController = TextEditingController();
   final TextEditingController _ownerPhoneController = TextEditingController();
 
   bool _isSaving = false;
   int _selectedIndex = 1; // Default to Home (Center)
+
+  // New Fields
+  int _capacity = 6;
+  final List<int> _capacityOptions = [6, 8];
+
+  String _rosterStatus = "Available";
+  final List<String> _statusOptions = ["Available", "Unavailable"];
+
 
   @override
   void initState() {
@@ -75,10 +81,23 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
         setState(() {
           _docId = doc.id; // Store found ID (could be "1" or "8vB...")
           _driverNameController.text = data['driverName'] ?? '';
-          _resortChargesController.text = data['resortCharges'] ?? '';
           _ownerNameController.text = data['ownerName'] ?? '';
           _driverPhoneController.text = data['driverPhone'] ?? '';
           _ownerPhoneController.text = data['ownerPhone'] ?? '';
+          
+          if(data['capacity'] != null && data['capacity'] is int) {
+             _capacity = data['capacity'];
+             if(!_capacityOptions.contains(_capacity)) _capacity = 6; // Fallback
+          }
+
+          if(data['status'] != null && data['status'] is String) {
+            _rosterStatus = data['status'];
+            if(!_statusOptions.contains(_rosterStatus)) _rosterStatus = "Available"; // Fallback
+          } else {
+             // Fallback if status not present, map from availability bool
+             if(data['availability'] == false) _rosterStatus = "Unavailable";
+          }
+
         });
       }
     } catch (e) {
@@ -92,7 +111,6 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
   void dispose() {
     _rosterNoController.dispose();
     _driverNameController.dispose();
-    _resortChargesController.dispose();
     _ownerNameController.dispose();
     _driverPhoneController.dispose();
     _ownerPhoneController.dispose();
@@ -111,7 +129,9 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
 
     try {
       final Map<String, dynamic> rosterData = {
-        'availability': true,
+        'availability': _rosterStatus == "Available",
+        'status': _rosterStatus,
+        'capacity': _capacity,
         'docDrivers': 1,
         'driverName': _driverNameController.text,
         'driverPhone': _driverPhoneController.text,
@@ -119,23 +139,10 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
         'roosterNo': _rosterNoController.text,
         'ownerName': _ownerNameController.text,
         'ownerPhone': _ownerPhoneController.text,
-        'resortCharges': _resortChargesController.text,
         'totalDrivers': 1,
         // Only set createdAt if we are creating a fresh doc OR if it doesn't exist? 
-        // We'll keep it simple: merge preserves existing fields like createdAt if we don't send it.
-        // But here we are sending a map. If we want to keep createdAt we shouldn't send it or read it first.
-        // Simplified: Set timestamp if it's new.
         if (_docId == null) 'createdAt': FieldValue.serverTimestamp(),
       };
-
-      // USE ROSTER NO AS ID PREFERENCE
-      // If we found an existing doc (even with random ID), update IT to avoid duplicates?
-      // OR migrate it? User asked to save "according to rooster no".
-      // If I edit Roster 1 (saved as random ID), and save it, I should probably save it as ID="1" now.
-      // But then we have 2 files for Roster 1.
-      // Robust Approach: If _docId exists and is NOT rosterNo, delete old and create new? 
-      // That's risky. 
-      // Safest for USER REQUEST: Save to doc(roosterNo).
       
       final targetDocId = _rosterNoController.text;
 
@@ -274,7 +281,33 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
                           const SizedBox(height: 12),
                           _buildInputField("DRIVER NAME", controller: _driverNameController),
                           const SizedBox(height: 12),
-                          _buildInputField("RESORT CHARGES", isNumeric: true, controller: _resortChargesController),
+                          
+                          Row(
+                            children: [
+                               Expanded(
+                                child: _buildDropdown(
+                                  label: "CAPACITY",
+                                  value: _capacity,
+                                  items: _capacityOptions,
+                                  onChanged: (val) {
+                                    if(val != null) setState(() => _capacity = val);
+                                  }
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildDropdown(
+                                  label: "STATUS",
+                                  value: _rosterStatus,
+                                  items: _statusOptions,
+                                  onChanged: (val) {
+                                    if(val != null) setState(() => _rosterStatus = val);
+                                  }
+                                ),
+                              ),
+                            ],
+                          ),
+
                           const SizedBox(height: 12),
                           _buildInputField("OWNER NAME", controller: _ownerNameController),
                           const SizedBox(height: 16),
@@ -398,6 +431,60 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildDropdown<T>({required String label, required T value, required List<T> items, required ValueChanged<T?> onChanged}) {
+      return Container(
+        height: 44,
+        decoration: BoxDecoration(
+          color: inputBackground,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<T>(
+            value: value,
+            isExpanded: true,
+             icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((T item) {
+                return Align(
+                   alignment: Alignment.centerLeft,
+                    child: Text(
+                    "$item", // Primitive toString
+                    style: GoogleFonts.langar(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            items: items.map((T item) {
+              return DropdownMenuItem<T>(
+                value: item,
+                child: Text(
+                  "$item",
+                  style: GoogleFonts.langar(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: onChanged,
+            hint: Text(
+              label,
+               style: GoogleFonts.langar(
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontSize: 12, 
+              ),
+            ),
+          ),
+        ),
+      );
   }
 
   Widget _buildInputField(String hint, {bool isNumeric = false, bool isPhone = false, required TextEditingController controller}) {
