@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/fade_route.dart';
-import 'safari_details_screen.dart';
+import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
-import '../home/home_screen.dart';
 
-class CompletedSafariScreen extends StatelessWidget {
-  CompletedSafariScreen({super.key});
+class SafariDetailsScreen extends StatelessWidget {
+  const SafariDetailsScreen({super.key});
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // Colors from design image
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color containerBrown = Color(0xFF6D5446); // Main brown area
-  static const Color bannerOlive = Color(0xFF8DA331); // Banner green
-  static const Color activeNavInner = Color(0xFFD4AF37);
-  static const Color listCardBg = Color(0xFFD9D9D9); // Greyish-white for cards
-  static const Color detailsButtonBg = Color(0xFF8DA331); // Button green
+  final Color appGreen = const Color(0xFF555E40);
+  final Color containerBrown = const Color(0xFF6D5446);
+  final Color bannerOlive = const Color(0xFF8DA331);
+  final Color activeNavInner = const Color(0xFFD4AF37);
+  final Color detailsCardBg = const Color(0xFFA6AD77); // Light olive green for card
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
       drawer: const MenuScreen(),
       endDrawer: TransactionScreen(),
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 93,
@@ -82,12 +76,12 @@ class CompletedSafariScreen extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: containerBrown.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 30),
-                          // COMPLETED TRIPS Banner
+                          const SizedBox(height: 40),
+                          // COMPLETED SAFARIS Banner
                           Container(
                             width: 250,
                             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -97,7 +91,7 @@ class CompletedSafariScreen extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "COMPLETED TRIPS",
+                                "COMPLETED SAFARIS",
                                 style: GoogleFonts.langar(
                                   fontWeight: FontWeight.extrabold,
                                   fontSize: 20,
@@ -106,45 +100,40 @@ class CompletedSafariScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          // DATE filter
-                          Container(
-                            width: 140,
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: bannerOlive,
-                              border: Border.all(color: Colors.black12, width: 1),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "DATE",
-                                  style: GoogleFonts.langar(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.black,
+                          const SizedBox(height: 40),
+                          
+                          // Details Card
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                color: detailsCardBg,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Roaster No. 48",
+                                    style: GoogleFonts.langar(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
-                                ),
-                                const Icon(Icons.calendar_today_outlined, size: 20, color: Colors.black),
-                              ],
+                                  const SizedBox(height: 24),
+                                  _buildDetailRow("Driver name", "Vivek"),
+                                  _buildDetailRow("Name of passenger", "Rahul"),
+                                  _buildDetailRow("No. of person", "5"),
+                                  _buildDetailRow("Date", "13/12/25"),
+                                  _buildDetailRow("Slot", "Morning"),
+                                  _buildDetailRow("Time", "9 AM"),
+                                ],
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          // LIST
-                          Expanded(
-                            child: ListView(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              children: [
-                                _buildTripItem(context, "Roaster No. 48"),
-                                _buildTripItem(context, "Roaster No. 49"),
-                                _buildTripItem(context, "Roaster No. 50"),
-                                _buildTripItem(context, "Roaster No. 51"),
-                                _buildTripItem(context, "Roaster No. 52"),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
@@ -160,7 +149,7 @@ class CompletedSafariScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         height: 100,
         decoration: const BoxDecoration(
-          color: appGreen,
+          color: Color(0xFF555E40),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(18),
             topRight: Radius.circular(18),
@@ -169,7 +158,7 @@ class CompletedSafariScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(context, 'assets/images/nav_menu.png', index: 0),
+             _buildNavItem(context, 'assets/images/nav_menu.png', index: 0),
             // Home (Center)
             GestureDetector(
               onTap: () {
@@ -196,7 +185,7 @@ class CompletedSafariScreen extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: activeNavInner,
+                    color: Color(0xFFD4AF37),
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(12),
@@ -214,63 +203,43 @@ class CompletedSafariScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTripItem(BuildContext context, String title) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: listCardBg,
-        borderRadius: BorderRadius.circular(12),
-      ),
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.directions_car, size: 40, color: Colors.black),
-          ),
-          const SizedBox(width: 16),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.langar(
-                    fontSize: 20,
-                    fontWeight: FontWeight.extrabold,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      FadeRoute(page: const SafariDetailsScreen()),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: detailsButtonBg,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      "GET DETAILS",
-                      style: GoogleFonts.langar(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            flex: 5,
+            child: Text(
+              label,
+              style: GoogleFonts.langar(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              ":",
+              style: GoogleFonts.langar(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(
+              value,
+              style: GoogleFonts.langar(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
@@ -282,9 +251,9 @@ class CompletedSafariScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (index == 0) {
-          _scaffoldKey.currentState?.openDrawer();
+          Scaffold.of(context).openDrawer();
         } else if (index == 2) {
-          _scaffoldKey.currentState?.openEndDrawer();
+          Scaffold.of(context).openEndDrawer();
         }
       },
       child: Container(
