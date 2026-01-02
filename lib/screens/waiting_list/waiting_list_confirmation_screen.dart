@@ -176,6 +176,7 @@ class WaitingListConfirmationScreen extends StatelessWidget {
                 ),
               ),
             ),
+            ),
           ],
         ),
         bottomNavigationBar: Container(

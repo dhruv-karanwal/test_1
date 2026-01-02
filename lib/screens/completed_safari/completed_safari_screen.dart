@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../utils/fade_route.dart';
-import 'safari_details_screen.dart';
-import '../menu/menu_screen.dart';
-import '../transaction/transaction_screen.dart';
-import '../home/home_screen.dart';
 
 class CompletedSafariScreen extends StatelessWidget {
   CompletedSafariScreen({super.key});
@@ -22,9 +17,6 @@ class CompletedSafariScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: const MenuScreen(),
-      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -156,7 +148,7 @@ class CompletedSafariScreen extends StatelessWidget {
           ),
         ],
       ),
-      // BOTTOM NAV
+       // BOTTOM NAV
       bottomNavigationBar: Container(
         height: 100,
         decoration: const BoxDecoration(
@@ -169,15 +161,12 @@ class CompletedSafariScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(context, 'assets/images/nav_menu.png', index: 0),
+            _buildNavItem('assets/images/nav_menu.png', size: 60), 
+            
             // Home (Center)
             GestureDetector(
               onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  FadeRoute(page: HomeScreen()),
-                  (route) => false,
-                );
+                Navigator.popUntil(context, (route) => route.isFirst);
               },
               child: Container(
                 width: 70,
@@ -207,7 +196,8 @@ class CompletedSafariScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _buildNavItem(context, 'assets/images/transaction.png', index: 2),
+
+            _buildNavItem('assets/images/transaction.png', size: 60), 
           ],
         ),
       ),
@@ -278,25 +268,21 @@ class CompletedSafariScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(BuildContext context, String assetPath, {required int index}) {
-    return GestureDetector(
-      onTap: () {
-        if (index == 0) {
-          _scaffoldKey.currentState?.openDrawer();
-        } else if (index == 2) {
-          _scaffoldKey.currentState?.openEndDrawer();
-        }
-      },
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9),
-          shape: BoxShape.circle,
-        ),
-        padding: const EdgeInsets.all(8),
-        child: Image.asset(assetPath, fit: BoxFit.contain),
-      ),
-    );
+  Widget _buildNavItem(String assetPath, {double size = 50}) {
+      return GestureDetector(
+        onTap: () {
+          // Placeholder for menu/trans
+        },
+        child: Container(
+           width: size,
+           height: size,
+           decoration: const BoxDecoration(
+             color: Color(0xFFD9D9D9),
+             shape: BoxShape.circle,
+           ),
+           padding: const EdgeInsets.all(8),
+           child: Image.asset(assetPath, fit: BoxFit.contain),
+         ),
+      );
   }
 }
