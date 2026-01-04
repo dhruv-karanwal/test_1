@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import 'permit_id_screen.dart';
 import 'booking_confirmation_screen.dart';
 import '../home/home_screen.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
+import '../../widgets/shared_ui.dart';
+import '../../services/slot_availability_service.dart';
 import '../../utils/fade_route.dart';
 
 class EntryChoiceScreen extends StatefulWidget {
@@ -13,6 +18,7 @@ class EntryChoiceScreen extends StatefulWidget {
 }
 
 class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isDriverByChoice = false;
 
   // Controllers
@@ -23,13 +29,15 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
   final TextEditingController _zoneController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
+  String? _selectedTimeSlot;
+
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color headerOrange = Color(0xFFFF8C00); // Orange for toggle/header active
-  static const Color headerGreen = Color(0xFF3A4F1F); // Darker green strip from AddRoster
-  static const Color cardBrown = Color(0xCC5E4B35); // Matches AddRoster cardBackground
-  static const Color inputBg = Color(0xFFF5F5F0);
-  static const Color buttonBrown = Color(0xFF5E4B35);
+  static const Color appGreen = AppColors.appGreen;
+  static const Color headerOrange = AppColors.highlightOrange; // Orange for toggle/header active
+  static const Color headerGreen = AppColors.headerGreen; // Darker green strip from AddRoster
+  static const Color cardBrown = AppColors.cardBrown; // Matches AddRoster cardBackground
+  static const Color inputBg = AppColors.inputBg;
+  static const Color buttonBrown = AppColors.buttonBrown;
 
   @override
   void dispose() {
@@ -66,41 +74,18 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       backgroundColor: appGreen,
-      appBar: AppBar(
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-        ),
-        title: Text(
-          "BANDHAVGARH SAFARI",
-          style: GoogleFonts.langar(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/images/logo.png'), 
-            ),
-          ),
-        ],
-      ),
+      appBar: buildCommonAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
-           Container(
+            Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
+                  image: AssetImage('assets/images/landing_bg.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -206,7 +191,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
                           const SizedBox(height: 12),
                           Row(
                             children: [
-                              Expanded(flex: 4, child: _buildInput("TIME SLOT", _timeController)), 
+                              Expanded(flex: 4, child: _buildTimeDropdown("TIME SLOT")), 
                               const SizedBox(width: 12),
                               Expanded(flex: 3, child: _buildInput("ZONE", _zoneController)),
                             ],
@@ -275,62 +260,7 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
           ),
         ],
       ),
-       bottomNavigationBar: Container(
-        height: 100,
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem('assets/images/nav_menu.png', size: 60),
-            
-            // Home (Center)
-            GestureDetector(
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  FadeRoute(page: HomeScreen()),
-                  (route) => false,
-                );
-              },
-              child: Container(
-                width: 70,
-                height: 70,
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFD4AF37), // activeNavInner
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(
-                    'assets/images/nav_home_new.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-
-            _buildNavItem('assets/images/transaction.png', size: 60), 
-          ],
-        ),
-      ),
+       bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
     );
   }
 
@@ -357,21 +287,53 @@ class _EntryChoiceScreenState extends State<EntryChoiceScreen> {
      );
   }
 
-   Widget _buildNavItem(String assetPath, {double size = 50}) {
-     return GestureDetector(
-       onTap: () {
-         // Placeholder for menu/trans
-       },
-       child: Container(
-          width: size,
-          height: size,
-          decoration: const BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            shape: BoxShape.circle,
-          ),
-          padding: const EdgeInsets.all(8),
-          child: Image.asset(assetPath, fit: BoxFit.contain),
-        ),
+  Widget _buildTimeDropdown(String hint) {
+     final service = SlotAvailabilityService.instance;
+     List<DropdownMenuItem<String>> items = [];
+
+     if (service.isMorningSlotsOpen.value) {
+       items.add(const DropdownMenuItem(value: "Morning", child: Text("Morning")));
+     }
+     if (service.isEveningSlotsOpen.value) {
+       items.add(const DropdownMenuItem(value: "Evening", child: Text("Evening")));
+     }
+
+     if (_selectedTimeSlot != null) {
+         bool isValid = items.any((item) => item.value == _selectedTimeSlot);
+         if (!isValid) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+               if (mounted) setState(() => _selectedTimeSlot = null);
+            });
+         }
+     }
+
+     return Container(
+       height: 45,
+       decoration: BoxDecoration(
+         color: inputBg,
+         borderRadius: BorderRadius.circular(4),
+       ),
+       padding: const EdgeInsets.symmetric(horizontal: 10),
+       alignment: Alignment.centerLeft,
+       child: DropdownButtonHideUnderline(
+         child: DropdownButton<String>(
+           value: _selectedTimeSlot,
+           hint: Text(
+             hint,
+             style: GoogleFonts.langar(color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 13),
+           ),
+           isExpanded: true,
+           icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
+           items: items,
+           onChanged: (val) {
+             setState(() {
+               _selectedTimeSlot = val;
+             });
+           },
+           style: GoogleFonts.langar(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),
+           dropdownColor: inputBg,
+         ),
+       ),
      );
   }
 }

@@ -7,6 +7,7 @@ import 'add_guide_screen.dart';
 import 'edit_guide_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 
 class GuideDetailApp extends StatelessWidget {
@@ -19,7 +20,7 @@ class GuideDetailApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         // Visual match for Olive Green
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF555E40)),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.appGreen),
         textTheme: GoogleFonts.langarTextTheme(),
       ),
       home: const GuideDetailScreen(),
@@ -38,15 +39,16 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // --- COLORS ---
-  static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
-  static const Color mustardYellow = Color(0xFFE4C939); // Search Bar
-  static const Color darkBrown = Color(0xFF4E342E); // List Items / Text / Icons
-  static const Color lightBeige = Color(0xFFF5F5DC); // FAB Background
+  // --- COLORS ---
+  static const Color appGreen = AppColors.appGreen; // Updated Olive Green
+  static const Color mustardYellow = AppColors.highlightOrange; // Search Bar
+  static const Color darkBrown = AppColors.buttonBrown; // List Items / Text / Icons
+  static const Color lightBeige = AppColors.inputBg; // FAB Background
   
   // Nav Bar Colors
   static const Color navSelectedOuter = Colors.white;
-  static const Color navSelectedInner = Color(0xFFD4AF37); // Gold/Yellow
-  static const Color navUnselected = Color(0xFFD9D9D9); // Grey
+  static const Color navSelectedInner = AppColors.activeNavGold; // Gold/Yellow
+  static const Color navUnselected = AppColors.navIconBg; // Grey
 
   int _selectedIndex = 1; // Default to Home (Center)
 
@@ -128,12 +130,12 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay
             ),
           ),
 

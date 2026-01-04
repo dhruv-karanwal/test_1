@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import '../home/home_screen.dart';
 import '../../utils/fade_route.dart';
 
@@ -7,11 +8,12 @@ class BookingConfirmationScreen extends StatelessWidget {
   const BookingConfirmationScreen({super.key});
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color headerBrown = Color(0xFFC1A87D); 
-  static const Color cardGreen = Color(0xFF8DA331); // Lighter green for summary card
-  static const Color buttonBrown = Color(0xFF5E4B35); 
-  static const Color backgroundGreen = Color(0xFF555E40); 
+  // Colors
+  static const Color appGreen = AppColors.appGreen;
+  static const Color headerBrown = AppColors.highlightOrange; // Changed to match theme
+  static const Color cardGreen = AppColors.cardBrown; // Changed to match other card backgrounds
+  static const Color buttonBrown = AppColors.buttonBrown; 
+  static const Color backgroundGreen = AppColors.appGreen; 
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class BookingConfirmationScreen extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
+                  image: AssetImage('assets/images/landing_bg.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -76,7 +78,7 @@ class BookingConfirmationScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37), // Gold/Yellow
+                      color: AppColors.activeNavGold, // Gold/Yellow
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(color: Colors.white, width: 1.5),
                     ),
@@ -212,7 +214,7 @@ class BookingConfirmationScreen extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Color(0xFFD4AF37), // activeNavInner
+                    color: AppColors.activeNavGold, // activeNavInner
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(12),
@@ -240,7 +242,7 @@ class BookingConfirmationScreen extends StatelessWidget {
           Text(
             label,
             style: GoogleFonts.langar(
-              color: const Color(0xFF3E2723), // Dark Brown
+              color: Colors.white, // Changed to white for better visibility on brown card
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
@@ -250,7 +252,7 @@ class BookingConfirmationScreen extends StatelessWidget {
               value,
               textAlign: TextAlign.left,
               style: GoogleFonts.langar(
-                color: const Color(0xFF3E2723),
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -270,7 +272,7 @@ class BookingConfirmationScreen extends StatelessWidget {
           width: size,
           height: size,
           decoration: const BoxDecoration(
-            color: Color(0xFFD9D9D9),
+            color: AppColors.navIconBg,
             shape: BoxShape.circle,
           ),
           padding: const EdgeInsets.all(8),

@@ -6,6 +6,7 @@ import '../widgets/custom_bottom_nav.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 class HotelDetailScreen extends StatelessWidget {
   final String hotelName;
@@ -22,7 +23,7 @@ class HotelDetailScreen extends StatelessWidget {
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF555E40),
+        backgroundColor: AppColors.appGreen,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -47,7 +48,7 @@ class HotelDetailScreen extends StatelessWidget {
         ],
       ),
        floatingActionButton: FloatingActionButton(
-    backgroundColor: const Color(0xFF555E40),
+    backgroundColor: AppColors.appGreen,
     child: const Icon(Icons.edit, color: Colors.white),
     onPressed: () {
       Navigator.push(
@@ -68,12 +69,12 @@ class HotelDetailScreen extends StatelessWidget {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay
             ),
           ),
 
@@ -85,7 +86,7 @@ class HotelDetailScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4C19C),
+                color: AppColors.cardBrown.withOpacity(0.9),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.blueAccent.withOpacity(0.5), width: 2), // Matching the blue border in screenshot
               ),
@@ -98,7 +99,7 @@ class HotelDetailScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF775F4B),
+                      color: AppColors.headerGreen,
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(color: Colors.black, width: 1),
                     ),
@@ -172,7 +173,7 @@ class HotelDetailScreen extends StatelessWidget {
                     child: FloatingActionButton(
                       mini: true,
                       heroTag: "edit_hotel_fab",
-                      backgroundColor: const Color(0xFFD4C19C), // Match card bg? Or standard FAB color? Screenshot looks like transperant or light. 
+                      backgroundColor: AppColors.cardBrown, // Match card bg? Or standard FAB color? Screenshot looks like transperant or light. 
                       // Actually screenshot shows a plus icon in a circle. User said edit button previously. 
                       // Wait, screenshot shows a (+) icon in bottom right.
                       // But effectively for "Edit hotel" usually it's edit icon.

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/fade_route.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -21,14 +22,15 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   String _sortOption = "DATE"; // DATE or VALUE
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40); // Standard App Green
-  static const Color headerBrown = Color(0xFFC1A87D); // Gold/Beige Header
-  static const Color cardGreen = Color(0xFF0F4C3A); // Deep Green for cards
-  static const Color amountGreen = Color(0xFF7CFC00); // Bright Green for amounts/success
-  static const Color backgroundGreen = Color(0xFFE3D5C0); // Beige/Tan background
+  // Colors
+  static const Color appGreen = AppColors.appGreen; // Standard App Green
+  static const Color headerBrown = AppColors.highlightOrange; // Gold/Beige Header
+  static const Color cardGreen = AppColors.headerGreen; // Deep Green for cards
+  static const Color amountGreen = Color(0xFF7CFC00); // Bright Green for amounts/success, leaving as specific detail
+  static const Color backgroundGreen = Color(0xFFE3D5C0); // Beige/Tan background, possibly can stay or match appGreen? keeping for now.
   
   // Nav Colors
-  static const Color activeNavInner = Color(0xFFD4AF37); // Gold/Yellow
+  static const Color activeNavInner = AppColors.activeNavGold; // Gold/Yellow
   static const Color activeNavOuter = Colors.white;
 
   @override
@@ -79,14 +81,14 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         children: [
           // 1. BACKGROUND
           Container(
-             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.cover,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/landing_bg.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay
             ),
           ),
 
@@ -329,7 +331,7 @@ class _TransactionCardState extends State<TransactionCard> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: AppColors.headerGreen,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.black, width: 1.5),
          boxShadow: [

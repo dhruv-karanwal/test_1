@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../utils/app_colors.dart';
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
@@ -17,7 +18,7 @@ class AddGuideApp extends StatelessWidget {
         useMaterial3: true,
         // Visually matched olive green primary color
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF555E40),
+          seedColor: AppColors.appGreen,
         ),
         textTheme: GoogleFonts.langarTextTheme(),
       ),
@@ -37,12 +38,12 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Colors extracted/approximated from description
-  static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
-  static const Color cardBackground = Color(0xCC5E4B35); // Semi-transparent brown/olive
-  static const Color headerGreen = Color(0xFF3A4F1F); // Darker green strip
-  static const Color inputBackground = Color(0xFFF5F5F0); // Off-white
-  static const Color saveButtonGreen = Color(0xFF7CFC00); // Bright green
-  static const Color saveButtonText = Color(0xFF006400); // Dark green
+  static const Color appGreen = AppColors.appGreen; // Updated Olive Green
+  static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
+  static const Color headerGreen = AppColors.headerGreen; // Darker green strip
+  static const Color inputBackground = AppColors.inputBg; // Off-white
+  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color saveButtonText = Colors.black; // Dark green
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey
 
   // Controllers
@@ -191,14 +192,14 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/images/background.png',
+                  'assets/images/landing_bg.png',
                 ), 
                 fit: BoxFit.cover,
               ),
             ),
             // Slight dark overlay for contrast
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6),
+              color: AppColors.appGreen.withOpacity(0.6),
             ),
           ),
 
@@ -375,8 +376,8 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
     
     // Style constants
     const Color selectedOuterColor = Colors.white;
-    const Color selectedInnerColor = Color(0xFFD4AF37); // Gold/Yellow
-    const Color unselectedColor = Color(0xFFD9D9D9); // Light Grey
+    const Color selectedInnerColor = AppColors.activeNavGold; // Gold/Yellow
+    const Color unselectedColor = AppColors.navIconBg; // Light Grey
     
     return GestureDetector(
       onTap: () => _onItemTapped(index),

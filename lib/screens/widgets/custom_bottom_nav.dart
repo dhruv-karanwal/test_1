@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../home/home_screen.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/fade_route.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -8,10 +9,11 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Colors from design
-    const Color appGreen = Color(0xFF555E40);
-    const Color navUnselected = Color(0xFFD9D9D9); // Grey
-    const Color navSelectedOuter = Colors.white;
-    const Color navSelectedInner = Color(0xFFD4AF37); // Gold/Yellow
+    // Colors from design
+    // const Color appGreen = AppColors.appGreen; // Unused local var, but consistent
+    // const Color navUnselected = AppColors.navIconBg; // Grey
+    // const Color navSelectedOuter = Colors.white;
+    // const Color navSelectedInner = AppColors.activeNavGold; // Gold/Yellow
 
     // We can assume we are not selected on "Detail" screens, or maybe Home is default?
     // In HotelList, we probably aren't "Home".
@@ -24,7 +26,7 @@ class CustomBottomNav extends StatelessWidget {
     return Container(
       height: 100,
       decoration: const BoxDecoration(
-        color: appGreen,
+        color: AppColors.appGreen,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
@@ -69,7 +71,7 @@ class CustomBottomNav extends StatelessWidget {
         height: 60,
         padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9), // Unselected gray
+          color: AppColors.navIconBg, // Unselected gray
           shape: BoxShape.circle,
         ),
         child: Image.asset(

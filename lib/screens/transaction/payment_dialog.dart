@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../utils/app_colors.dart';
 
 class PaymentDialog extends StatefulWidget {
   final double amount;
@@ -89,7 +90,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color(0xFFF5F5F0),
+      backgroundColor: AppColors.inputBg,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -101,7 +102,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
               style: GoogleFonts.langar(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF555E40),
+                color: AppColors.appGreen,
               ),
             ),
             const SizedBox(height: 16),
@@ -132,7 +133,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
               ElevatedButton(
                 onPressed: _generateQr,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF555E40),
+                  backgroundColor: AppColors.appGreen,
                   foregroundColor: Colors.white,
                 ),
                 child: const Text("Generate QR"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import '../home/home_screen.dart';
 import '../../utils/fade_route.dart';
 
@@ -47,7 +48,7 @@ class LandingScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF996B30), // Gold/Brownish color from button image
+                  backgroundColor: AppColors.activeNavGold.withOpacity(0.7), // Unified button color
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

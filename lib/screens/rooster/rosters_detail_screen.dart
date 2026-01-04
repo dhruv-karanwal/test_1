@@ -8,6 +8,7 @@ import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 
 
@@ -40,15 +41,16 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // --- COLORS ---
-  static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
-  static const Color mustardYellow = Color(0xFFE4C939); // Search Bar
-  static const Color darkBrown = Color(0xFF4E342E); // List Items / Text / Icons
-  static const Color lightBeige = Color(0xFFF5F5DC); // FAB Background
+  // --- COLORS ---
+  static const Color appGreen = AppColors.appGreen; // Updated Olive Green
+  static const Color mustardYellow = AppColors.highlightOrange; // Changed to unify with orange highlights
+  static const Color darkBrown = AppColors.buttonBrown; // List Items / Text / Icons
+  static const Color lightBeige = AppColors.inputBg; // FAB Background
   
   // Nav Bar Colors
   static const Color navSelectedOuter = Colors.white;
-  static const Color navSelectedInner = Color(0xFFD4AF37); // Gold/Yellow
-  static const Color navUnselected = Color(0xFFD9D9D9); // Grey
+  static const Color navSelectedInner = AppColors.activeNavGold; // Gold/Yellow
+  static const Color navUnselected = AppColors.navIconBg; // Grey
 
   int _selectedIndex = 1; // Default to Home (Center)
 
@@ -146,14 +148,14 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
         children: [
           // 1. BACKGROUND
           Container(
-             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.cover,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/landing_bg.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay matches Home
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay matches Home
             ),
           ),
 
@@ -253,57 +255,52 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                     });
 
                     return ListView.separated(
-                      padding: const EdgeInsets.only(top: 10, bottom: 100),
+                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 100), // Fixed horizontal padding for alignment
                       itemCount: sortedDocs.length,
                       separatorBuilder: (context, index) => const SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final doc = sortedDocs[index];
                         final roosterData = doc.data() as Map<String, dynamic>;
-                        // Use saved "roosterNo" or fallback
                         final String displayRosterNo = roosterData['roosterNo'] ?? 'Unknown'; 
-                        
-                        // Parse roster number for Edit Screen navigation (assuming it's int parsable, else fallback)
                         final int rosterNum = int.tryParse(displayRosterNo) ?? 0;
 
-                        return Center(
-                          child: Container(
-                            width: 300,
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: darkBrown,
-                              borderRadius: BorderRadius.circular(22),
-                              border: Border.all(color: Colors.white, width: 2),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Roster No. $displayRosterNo",
-                                  style: GoogleFonts.langar(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                  ),
+                        return Container(
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: darkBrown,
+                            borderRadius: BorderRadius.circular(22),
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Roster No. $displayRosterNo",
+                                style: GoogleFonts.langar(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      FadeRoute(
-                                        page: EditRosterScreen(rosterNumber: rosterNum),
-                                      ),
-                                    );
-                                  },
-                                  child: Image.asset(
-                                    'assets/images/edit_icon.png',
-                                    width: 20, 
-                                    height: 20,
-                                    color: Colors.white, 
-                                  ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    FadeRoute(
+                                      page: EditRosterScreen(rosterNumber: rosterNum),
+                                    ),
+                                  );
+                                },
+                                child: Image.asset(
+                                  'assets/images/edit_icon.png',
+                                  width: 20, 
+                                  height: 20,
+                                  color: Colors.white, 
+                                  filterQuality: FilterQuality.high, // Ensure sharp icon scaling
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         );
                       },

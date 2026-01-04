@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/fade_route.dart';
 import '../home/home_screen.dart';
+import '../../utils/app_colors.dart';
 
 class WaitingListConfirmationScreen extends StatelessWidget {
   const WaitingListConfirmationScreen({super.key});
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color headerBrown = Color(0xFFC1A87D); 
-  static const Color cardGreen = Color(0xFF8DA331); 
-  static const Color buttonBrown = Color(0xFF5E4B35); 
-  static const Color bannerGold = Color(0xFFD4AF37);
-  static const Color activeNavInner = Color(0xFFD4AF37);
+  // Colors
+  static const Color appGreen = AppColors.appGreen;
+  static const Color headerBrown = AppColors.headerGreen; 
+  static const Color cardGreen = AppColors.headerGreen; 
+  static const Color buttonBrown = AppColors.buttonBrown; 
+  static const Color bannerGold = AppColors.highlightOrange;
+  static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class WaitingListConfirmationScreen extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
+                  image: AssetImage('assets/images/landing_bg.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -277,7 +279,7 @@ class WaitingListConfirmationScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: Color(0xFFD9D9D9),
+             color: AppColors.navIconBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

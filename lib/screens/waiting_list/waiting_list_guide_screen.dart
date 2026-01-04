@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 import 'waiting_list_payment_screen.dart';
 
 class WaitingListGuideScreen extends StatelessWidget {
   const WaitingListGuideScreen({super.key});
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color cardBrown = Color(0xFF5E4B35);
-  static const Color bannerGold = Color(0xFFD4AF37);
-  static const Color inputFieldColor = Color(0xFFD9D9D9);
-  static const Color activeNavInner = Color(0xFFD4AF37);
+  // Colors
+  static const Color appGreen = AppColors.appGreen;
+  static const Color cardBrown = AppColors.cardBrown;
+  static const Color bannerGold = AppColors.highlightOrange; // Orange banner
+  static const Color inputFieldColor = AppColors.inputBg;
+  static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class WaitingListGuideScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -224,7 +226,7 @@ class WaitingListGuideScreen extends StatelessWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xFF434D35), // Dark green ish
+          color: AppColors.headerGreen, // Dark green ish
           borderRadius: BorderRadius.circular(8),
              boxShadow: [
             BoxShadow(
@@ -238,7 +240,7 @@ class WaitingListGuideScreen extends StatelessWidget {
           child: Text(
             text,
             style: GoogleFonts.langar(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -257,7 +259,7 @@ class WaitingListGuideScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: Color(0xFFD9D9D9),
+             color: AppColors.navIconBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

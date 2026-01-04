@@ -7,15 +7,17 @@ import '../transaction/transaction_screen.dart';
 import '../hotels/hotel_list_screen.dart';
 import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   // Colors extracted from design
-  static const Color appGreen = Color(0xFF555E40); // Standard App Green
-  static const Color buttonBrown = Color(0xFF6D5446); // Brown buttons
-  static const Color userCardBrown = Color(0xFF6D5446); // User Info Card
-  static const Color userIconBg = Color(0xFFD9D9D9); // Grey circle
+  // Colors extracted from design
+  static const Color appGreen = AppColors.appGreen; // Standard App Green
+  static const Color buttonBrown = AppColors.buttonBrown; // Brown buttons
+  static const Color userCardBrown = AppColors.buttonBrown; // User Info Card
+  static const Color userIconBg = AppColors.navIconBg; // Grey circle
   static const Color drawerBackground = Color(0xFFD4C19C); // Beige Drawer Background
 
   @override
@@ -192,7 +194,7 @@ class MenuScreen extends StatelessWidget {
         width: 60, 
         height: 60, 
         decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9),
+          color: AppColors.navIconBg,
           shape: BoxShape.circle,
         ),
          padding: const EdgeInsets.all(8), 

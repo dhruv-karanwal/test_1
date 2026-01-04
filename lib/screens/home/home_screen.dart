@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../landing/landing_screen.dart';
@@ -8,6 +9,9 @@ import '../../utils/fade_route.dart';
 import '../booking/entry_choice_screen.dart';
 import '../waiting_list/waiting_list_customer_screen.dart';
 import '../completed_safari/completed_safari_screen.dart';
+import 'widgets/slot_control_dialog.dart';
+import '../../services/slot_availability_service.dart';
+import '../../widgets/shared_ui.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key}); // Remove const to allow GlobalKey
@@ -15,9 +19,10 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Colors extracted/approximated from design
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color buttonGold = Color(0xFFD4AF37); // Gold color for buttons
-  static const Color activeNavInner = Color(0xFFD4AF37);
+  // Colors extracted/approximated from design
+  static const Color appGreen = AppColors.appGreen;
+  static const Color buttonGold = AppColors.activeNavGold; // Reverted to Gold
+  static const Color activeNavInner = AppColors.activeNavGold;
   static const Color activeNavOuter = Colors.white;
 
   @override
@@ -27,44 +32,13 @@ class HomeScreen extends StatelessWidget {
       drawer: const MenuScreen(), // Add the Drawer
       endDrawer: TransactionScreen(), // Right Drawer (Transaction)
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        title: Row(
-          children: [
-             GestureDetector(
-              onTap: () {
-                 Navigator.pushAndRemoveUntil(
-                  context,
-                  FadeRoute(page: const LandingScreen()),
-                  (route) => false,
-                );
-              },
-              child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-            ),
-            const SizedBox(width: 16),
-            Text(
-              "BANDHAVGARH SAFARI",
-              style: GoogleFonts.langar(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/images/logo.png'), 
-            ),
-          ),
-        ],
-      ),
+      appBar: buildCommonAppBar(context, onBack: () {
+         Navigator.pushAndRemoveUntil(
+          context,
+          FadeRoute(page: const LandingScreen()),
+          (route) => false,
+        );
+      }),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -72,12 +46,12 @@ class HomeScreen extends StatelessWidget {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay to match design
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay to match design
             ),
           ),
 
@@ -90,9 +64,18 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 100), // Offset for AppBar
                 
                 _buildDashboardButton("BOOK A SAFARI", Icons.directions_car_filled_outlined, onTap: () {
+                   if (!SlotAvailabilityService.instance.isTodaysBookingOpen.value) {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       const SnackBar(
+                         content: Text("Today's bookings are closed"),
+                         backgroundColor: Colors.red,
+                       ),
+                     );
+                     return;
+                   }
                    Navigator.push(
                     context,
-                    FadeRoute(page: const EntryChoiceScreen()),
+                    FadeRoute(page: EntryChoiceScreen()),
                   );
                 }),
                 const SizedBox(height: 24),
@@ -108,67 +91,36 @@ class HomeScreen extends StatelessWidget {
                 _buildDashboardButton("COMPLETED SAFARIS", Icons.directions_car_filled_outlined, onTap: () {
                    Navigator.push(
                     context,
-                    FadeRoute(page: const CompletedSafariScreen()),
+                    FadeRoute(page: CompletedSafariScreen()),
                   );
                 }),
               ],
+            ),
+          ),
+
+          // 3. FLOATING ACTION BUTTON (Top Right)
+          Positioned(
+            top: 160, 
+            right: 16,
+            child: FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const SlotControlDialog(),
+                );
+              },
+              backgroundColor: AppColors.activeNavGold,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Image.asset('assets/images/filter_icon.png', color: Colors.white),
+              ),
             ),
           ),
         ],
       ),
 
       // BOTTOM NAV
-      bottomNavigationBar: Container(
-        height: 100, // Increased from 72
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildUnselectedNavItem(context, 'assets/images/nav_menu.png', 0), // Menu (Left)
-
-            // Center (Home) - Selected
-            GestureDetector(
-              onTap: () {}, // Already Home
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                width: 70,
-                height: 70,
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: activeNavOuter,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: activeNavInner,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(
-                    'assets/images/nav_home_new.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-            
-            _buildUnselectedNavItem(context, 'assets/images/transaction.png', 2), // Transactions
-          ],
-        ),
-      ),
+      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
     );
   }
 
@@ -177,7 +129,7 @@ class HomeScreen extends StatelessWidget {
       onTap: onTap,
       child: Container(
       width: double.infinity,
-      height: 140, // Increased height to look bigger
+      height: 100, // Reduced height
       decoration: BoxDecoration(
         color: buttonGold,
         borderRadius: BorderRadius.circular(24), // Slightly more rounded
@@ -194,9 +146,9 @@ class HomeScreen extends StatelessWidget {
         children: [
           const SizedBox(width: 24), // Left padding
           CircleAvatar(
-            radius: 36, // Increased Icon background size
+            radius: 30, // Reduced Icon background size
             backgroundColor: Colors.white,
-             child: Icon(icon, color: Colors.black, size: 40), // Increased Icon size
+             child: Icon(icon, color: Colors.black, size: 32), // Reduced Icon size
           ),
           Expanded(
             child: Center(
@@ -204,44 +156,19 @@ class HomeScreen extends StatelessWidget {
                 text,
                 style: GoogleFonts.langar(
                   color: Colors.black,
-                  fontSize: 24, // Increased Font Size
+                  fontSize: 20, // Reduced Font Size
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          const SizedBox(width: 96), // 72*2 + 24 = 96 approx balance
+          const SizedBox(width: 84), // 60 + 24 = 84 approx balance
         ],
       ),
       ),
     );
   }
 
-  Widget _buildUnselectedNavItem(BuildContext context, String assetPath, int index) {
-     return GestureDetector(
-      onTap: () {
-        if (index == 0) {
-             // Open Drawer
-             _scaffoldKey.currentState?.openDrawer();
-        } else if (index == 2) {
-             // Open End Drawer (Transaction)
-             _scaffoldKey.currentState?.openEndDrawer();
-        }
-      },
-      child: Container(
-        width: 60, // Increased from 50
-        height: 60, // Increased from 50
-        decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9),
-          shape: BoxShape.circle,
-        ),
-         padding: const EdgeInsets.all(8), // Reduced from 12 to make icon usage larger
-         child: Image.asset(
-            assetPath,
-            fit: BoxFit.contain,
-          ),
-      ),
-    );
-  }
+
 }

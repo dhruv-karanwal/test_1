@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 import 'waiting_list_confirmation_screen.dart';
 
 class WaitingListPaymentScreen extends StatelessWidget {
   const WaitingListPaymentScreen({super.key});
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color cardBrown = Color(0xFF5E4B35);
-  static const Color bannerGold = Color(0xFFD4AF37);
-  static const Color summaryCardGreen = Color(0xFF8DA331); 
-  static const Color inputFieldColor = Color(0xFFD9D9D9);
-  static const Color activeNavInner = Color(0xFFD4AF37);
+  // Colors
+  static const Color appGreen = AppColors.appGreen;
+  static const Color cardBrown = AppColors.cardBrown;
+  static const Color bannerGold = AppColors.highlightOrange;
+  static const Color summaryCardGreen = AppColors.headerGreen; 
+  static const Color inputFieldColor = AppColors.inputBg;
+  static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -288,7 +290,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xFF6D4C41), // Brownish button color
+          color: AppColors.buttonBrown, // Brownish button color
           borderRadius: BorderRadius.circular(30), // Rounded button
              boxShadow: [
             BoxShadow(
@@ -321,7 +323,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: Color(0xFFD9D9D9),
+             color: AppColors.navIconBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

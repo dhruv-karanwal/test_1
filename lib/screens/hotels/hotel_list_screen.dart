@@ -9,6 +9,7 @@ import '../widgets/custom_bottom_nav.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 class HotelListScreen extends StatelessWidget {
   HotelListScreen({super.key});
@@ -47,7 +48,7 @@ class HotelListScreen extends StatelessWidget {
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false, // Changed to false so body starts below opaque AppBar
       appBar: AppBar(
-        backgroundColor: const Color(0xFF555E40),
+        backgroundColor: AppColors.appGreen,
         elevation: 0,
         toolbarHeight: 93, // Match other screens
         leading: IconButton(
@@ -75,7 +76,7 @@ class HotelListScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "add_hotel_fab",
-        backgroundColor: const Color(0xFF555E40),
+        backgroundColor: AppColors.highlightOrange, // High visibility
         child: const Icon(Icons.add, color: Colors.white),
         onPressed: () {
           Navigator.push(
@@ -96,12 +97,12 @@ class HotelListScreen extends StatelessWidget {
           Container(
              decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Greenish overlay to match Home
+              color: AppColors.appGreen.withOpacity(0.6), // Greenish overlay to match Home
             ),
           ),
 
@@ -114,7 +115,7 @@ class HotelListScreen extends StatelessWidget {
                 // height: auto (Flexible via Column/Expanded)
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4C19C),
+                  color: AppColors.cardBrown.withOpacity(0.9), // Slightly transparent/darker
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
@@ -123,7 +124,7 @@ class HotelListScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF775F4B),
+                      color: AppColors.headerGreen,
                       borderRadius: BorderRadius.circular(30), // More rounded
                       border: Border.all(color: Colors.black, width: 1.5), // Added black border
                     ),
@@ -178,7 +179,7 @@ class HotelListScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                           height: 145,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFDDA847),
+                            color: AppColors.activeNavGold, // Gold/Orange for items?
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(color: Colors.black, width: 1),
                           ),
@@ -230,7 +231,7 @@ class HotelListScreen extends StatelessWidget {
                                            child: Container(
                                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF6D5446),
+                                                color: AppColors.buttonBrown,
                                                 borderRadius: BorderRadius.circular(20),
                                                 border: Border.all(color: Colors.black),
                                                 boxShadow: [

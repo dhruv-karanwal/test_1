@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../utils/app_colors.dart';
 
 class EditRosterScreen extends StatefulWidget {
   final int rosterNumber; // Receive roster number
@@ -13,13 +14,13 @@ class EditRosterScreen extends StatefulWidget {
 
 class _EditRosterScreenState extends State<EditRosterScreen> {
   // Colors extracted/approximated from description
-  static const Color appGreen = Color(0xFF555E40); // Updated Olive Green
-  static const Color cardBackground = Color(0xCC5E4B35); // Semi-transparent brown/olive
-  static const Color headerGreen = Color(0xFF3A4F1F); // Darker green strip
-  static const Color inputBackground = Color(0xFFF5F5F0); // Off-white
-  static const Color saveButtonGreen = Color(0xFF7CFC00); // Bright green
-  static const Color saveButtonText = Color(0xFF006400); // Dark green
-  static const Color editButtonOrange = Color(0xFFFFA07A); // Salmon/Orange for Edit
+  static const Color appGreen = AppColors.appGreen; // Updated Olive Green
+  static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
+  static const Color headerGreen = AppColors.headerGreen; // Darker green strip
+  static const Color inputBackground = AppColors.inputBg; // Off-white
+  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color saveButtonText = Colors.black; // Dark green
+  static const Color editButtonOrange = AppColors.activeNavGold; // Using Gold for Edit
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey
 
   // State for document ID to update existing record
@@ -226,7 +227,7 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/images/background.png',
+                  'assets/images/landing_bg.png',
                 ), 
                 fit: BoxFit.cover,
               ),
@@ -526,8 +527,8 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
     
     // Style constants
     const Color selectedOuterColor = Colors.white;
-    const Color selectedInnerColor = Color(0xFFD4AF37); 
-    const Color unselectedColor = Color(0xFFD9D9D9); 
+    const Color selectedInnerColor = AppColors.activeNavGold; 
+    const Color unselectedColor = AppColors.navIconBg; 
     
     return GestureDetector(
       onTap: () => _onItemTapped(index),

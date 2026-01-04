@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import 'hotel_list_screen.dart';
 import '../widgets/custom_bottom_nav.dart';
 
@@ -22,7 +23,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF555E40),
+        backgroundColor: AppColors.appGreen,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -54,12 +55,12 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Overlay
+              color: AppColors.appGreen.withOpacity(0.6), // Overlay
             ),
           ),
 
@@ -70,7 +71,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                 width: 358,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF786452), // Brownish container color from screenshot 2
+                  color: AppColors.cardBrown, 
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
@@ -81,7 +82,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF3E4F39), // Dark Green
+                        color: AppColors.headerGreen, 
                         borderRadius: BorderRadius.circular(0), // Rectangularish inside? keeping rounded for now 
                         // Screenshot shows rounded corners for the header inside the card? No, maybe full width?
                         // Let's stick to previous pill shape but dark green.
@@ -91,7 +92,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         child: Text(
                           "DETAILS",
                           style: GoogleFonts.langar(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -129,7 +130,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF8BBF4D), // Light Green
+                          color: AppColors.highlightOrange,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                              BoxShadow(
@@ -142,7 +143,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         child: Text(
                           "Save",
                           style: GoogleFonts.langar(
-                            color: const Color(0xFF3E4F39), // Dark Green Text
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -172,7 +173,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
             hintStyle: GoogleFonts.langar(color: Colors.grey.shade600, fontWeight: FontWeight.bold),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             filled: true,
-            fillColor: const Color(0xFFD9D9D9), // Light greyish white
+            fillColor: AppColors.inputBg,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5), // Slightly rounded corners
               borderSide: BorderSide.none,

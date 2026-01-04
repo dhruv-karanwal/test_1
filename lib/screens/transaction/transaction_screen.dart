@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
+import '../../utils/app_colors.dart';
 import 'transaction_history_screen.dart';
 import '../../utils/fade_route.dart';
 
@@ -11,13 +12,14 @@ class TransactionScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // Usually passed or not needed if just a drawer
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40); 
-  static const Color buttonBrown = Color(0xFF6D5446); 
-  static const Color userCardBrown = Color(0xFF6D5446); 
-  static const Color userIconBg = Color(0xFFD9D9D9); 
-  static const Color activeNavInner = Color(0xFFD4AF37); // Gold/Yellow
+  // Colors
+  static const Color appGreen = AppColors.appGreen; 
+  static const Color buttonBrown = AppColors.buttonBrown; 
+  static const Color userCardBrown = AppColors.cardBrown; 
+  static const Color userIconBg = AppColors.navIconBg; 
+  static const Color activeNavInner = AppColors.activeNavGold; // Gold/Yellow
   static const Color activeNavOuter = Colors.white;
-  static const Color drawerBackground = Color(0xFFD4C19C); 
+  static const Color drawerBackground = Color(0xFFD4C19C); // Keep specific drawer color or standardize? Keeping for now. 
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +175,7 @@ class TransactionScreen extends StatelessWidget {
         width: 60, 
         height: 60, 
         decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9),
+          color: AppColors.navIconBg,
           shape: BoxShape.circle,
         ),
          padding: const EdgeInsets.all(8), 

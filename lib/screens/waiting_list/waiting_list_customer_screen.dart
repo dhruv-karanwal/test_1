@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/fade_route.dart';
+import '../../widgets/shared_ui.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
 import 'waiting_list_driver_screen.dart';
 import 'waiting_list_guide_screen.dart';
 
@@ -12,13 +16,14 @@ class WaitingListCustomerScreen extends StatefulWidget {
 }
 
 class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Colors based on common app theme
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color cardBrown = Color(0xFF5E4B35); // Dark brown for the form card
-  static const Color bannerGold = Color(0xFFD4AF37); // Gold for "WAITING LIST"
-  static const Color inputFieldColor = Color(0xFFD9D9D9); // Light grey/white for inputs
-  static const Color buttonGreen = Color(0xFF388E3C); 
-  static const Color activeNavInner = Color(0xFFD4AF37);
+  static const Color appGreen = AppColors.appGreen;
+  static const Color cardBrown = AppColors.cardBrown; // Dark brown for the form card
+  static const Color bannerGold = AppColors.highlightOrange; // Gold for "WAITING LIST"
+  static const Color inputFieldColor = AppColors.inputBg; // Light grey/white for inputs
+  static const Color buttonGreen = AppColors.headerGreen; 
+  static const Color activeNavInner = AppColors.activeNavGold;
 
   // Controllers
   final TextEditingController _nameController = TextEditingController();
@@ -26,6 +31,7 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
   final TextEditingController _hotelController = TextEditingController();
   final TextEditingController _zoneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _permitIdController = TextEditingController(); // Added
   
   // Dropdown selection
   String? _selectedTimeSlot;
@@ -38,6 +44,7 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
     _hotelController.dispose();
     _zoneController.dispose();
     _dateController.dispose();
+    _permitIdController.dispose(); // Added
     super.dispose();
   }
 
@@ -97,38 +104,11 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-        ),
-        title: Row(
-          children: [
-            Text(
-              "BANDHAVGARH SAFARI",
-              style: GoogleFonts.langar(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-            Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/images/logo.png'), 
-            ),
-          ),
-        ],
-      ),
+      appBar: buildCommonAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -136,7 +116,7 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -210,14 +190,25 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
                               Expanded(child: _buildTextField("ZONE", _zoneController)),
                             ],
                           ),
-                           _buildTextField(
-                            "DATE", 
-                            _dateController, 
-                            widthFactor: 0.5, 
-                            alignment: Alignment.centerLeft,
-                            readOnly: true,
-                            onTap: () => _selectDate(context),
-                            suffixIcon: const Icon(Icons.calendar_today, color: Colors.black54, size: 20),
+                          
+                          // Row for Date and Permit ID
+                           Row(
+                            children: [
+                              Expanded(
+                                child: _buildTextField(
+                                  "DATE", 
+                                  _dateController, 
+                                  alignment: Alignment.centerLeft,
+                                  readOnly: true,
+                                  onTap: () => _selectDate(context),
+                                  suffixIcon: const Icon(Icons.calendar_today, color: Colors.black54, size: 20),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: _buildTextField("PERMIT ID", _permitIdController),
+                              ),
+                            ],
                           ),
 
 
@@ -241,59 +232,8 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
           ),
         ],
       ),
-       // BOTTOM NAV
-      bottomNavigationBar: Container(
-        height: 100,
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem('assets/images/nav_menu.png', size: 60), 
-            
-            // Home (Center)
-            GestureDetector(
-              onTap: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-              child: Container(
-                width: 70,
-                height: 70,
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: activeNavInner,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(
-                    'assets/images/nav_home_new.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-
-            _buildNavItem('assets/images/transaction.png', size: 60), 
-          ],
-        ),
-      ),
+      // BOTTOM NAV
+      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
     );
   }
 
@@ -383,7 +323,7 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xFF434D35), // Dark green ish from image
+          color: AppColors.headerGreen, // Dark green ish from image
           borderRadius: BorderRadius.circular(8),
              boxShadow: [
             BoxShadow(
@@ -397,7 +337,7 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
           child: Text(
             text,
             style: GoogleFonts.langar(
-              color: Colors.black,
+              color: Colors.white, // Text color should be white on dark green
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -407,21 +347,5 @@ class _WaitingListCustomerScreenState extends State<WaitingListCustomerScreen> {
     );
   }
 
-  Widget _buildNavItem(String assetPath, {double size = 50}) {
-      return GestureDetector(
-        onTap: () {
-          // Placeholder for menu/trans
-        },
-        child: Container(
-           width: size,
-           height: size,
-           decoration: const BoxDecoration(
-             color: Color(0xFFD9D9D9),
-             shape: BoxShape.circle,
-           ),
-           padding: const EdgeInsets.all(8),
-           child: Image.asset(assetPath, fit: BoxFit.contain),
-         ),
-      );
-  }
+
 }

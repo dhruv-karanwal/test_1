@@ -2,55 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
-import '../widgets/custom_bottom_nav.dart';
+import '../../widgets/shared_ui.dart';
+import '../../utils/app_colors.dart';
 
 class CompletedSafariScreen extends StatelessWidget {
-  const CompletedSafariScreen({super.key});
+  CompletedSafariScreen({super.key});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Colors
-  static const Color appGreen = Color(0xFF555E40);
-  static const Color cardBrown = Color(0xFF5E4B35);
-  static const Color bannerGold = Color(0xFFD4AF37);
-  static const Color activeNavInner = Color(0xFFD4AF37);
-  static const Color cardContentBg = Color(0xFF8DA331); // Lighter green for cards
+  // Colors
+  static const Color appGreen = AppColors.appGreen;
+  static const Color cardBrown = AppColors.cardBrown;
+  static const Color bannerGold = AppColors.highlightOrange; // Should match "Waiting List" banner
+  static const Color activeNavInner = AppColors.activeNavGold;
+  static const Color cardContentBg = AppColors.headerGreen; // Using header green for consistency
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       drawer: const MenuScreen(),
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-        ),
-        title: Row(
-          children: [
-            Text(
-              "BANDHAVGARH SAFARI",
-              style: GoogleFonts.langar(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-         actions: [
-            Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('assets/images/logo.png'), 
-            ),
-          ),
-        ],
-      ),
+      appBar: buildCommonAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -58,7 +33,7 @@ class CompletedSafariScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -120,7 +95,7 @@ class CompletedSafariScreen extends StatelessWidget {
         ],
       ),
        // BOTTOM NAV
-      bottomNavigationBar: const CustomBottomNav(),
+      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
     );
   }
 

@@ -6,6 +6,7 @@ import '../widgets/custom_bottom_nav.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
+import '../../utils/app_colors.dart';
 
 class EditHotelScreen extends StatefulWidget {
   const EditHotelScreen({super.key});
@@ -24,7 +25,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF555E40),
+        backgroundColor: AppColors.appGreen,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -56,12 +57,12 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
+                image: AssetImage('assets/images/landing_bg.png'),
                 fit: BoxFit.cover,
               ),
             ),
             child: Container(
-              color: const Color(0xFF555E40).withOpacity(0.6), // Overlay
+              color: AppColors.appGreen.withOpacity(0.6), // Overlay
             ),
           ),
 
@@ -72,7 +73,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
                 width: 358,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF786452), // Brownish container
+                  color: AppColors.cardBrown, // Brownish container
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
@@ -83,7 +84,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF3E4F39), // Dark Green
+                        color: AppColors.headerGreen, // Dark Green
                         borderRadius: BorderRadius.circular(0),
                       ),
                       child: Center(
@@ -128,7 +129,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF8BBF4D), // Light Green
+                          color: AppColors.highlightOrange, // Light Green replaced with Highlight Orange for SAVE
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                              BoxShadow(
@@ -141,7 +142,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
                         child: Text(
                           "Save",
                           style: GoogleFonts.langar(
-                            color: const Color(0xFF3E4F39), // Dark Green Text
+                            color: Colors.black, // Dark Green Text replaced with Black for contrast
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -171,7 +172,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> {
             hintStyle: GoogleFonts.langar(color: Colors.grey.shade600, fontWeight: FontWeight.bold),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             filled: true,
-            fillColor: const Color(0xFFD9D9D9), 
+            fillColor: AppColors.inputBg, 
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5), 
               borderSide: BorderSide.none,
