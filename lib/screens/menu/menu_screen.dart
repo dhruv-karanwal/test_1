@@ -9,6 +9,7 @@ import '../completed_safari/completed_safari_screen.dart';
 import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
 import '../../utils/app_colors.dart';
+import '../compensation/compensation_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -133,7 +134,7 @@ class MenuScreen extends StatelessWidget {
             Navigator.pop(context); // Close drawer
             Navigator.push(
               context,
-              FadeRoute(page: CompletedSafariScreen()),
+              FadeRoute(page: const CompensationScreen()),
             );
           }),
         ],
