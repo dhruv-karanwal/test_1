@@ -5,6 +5,7 @@ import '../guide/guide_detail_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../hotels/hotel_list_screen.dart';
+import '../completed_safari/completed_safari_screen.dart';
 import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
 import '../../utils/app_colors.dart';
@@ -125,6 +126,14 @@ class MenuScreen extends StatelessWidget {
             Navigator.push(
               context,
               FadeRoute(page: const GuideDetailScreen()),
+            );
+          }),
+          const SizedBox(height: 16),
+          _buildMenuButton(context, "COMPENSATION", () {
+            Navigator.pop(context); // Close drawer
+            Navigator.push(
+              context,
+              FadeRoute(page: CompletedSafariScreen()),
             );
           }),
         ],

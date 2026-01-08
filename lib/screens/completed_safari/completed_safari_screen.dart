@@ -4,6 +4,8 @@ import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../widgets/shared_ui.dart';
 import '../../utils/app_colors.dart';
+import 'safari_details_screen.dart';
+import '../../utils/fade_route.dart';
 
 class CompletedSafariScreen extends StatelessWidget {
   CompletedSafariScreen({super.key});
@@ -11,12 +13,11 @@ class CompletedSafariScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Colors
-  // Colors
   static const Color appGreen = AppColors.appGreen;
-  static const Color cardBrown = AppColors.cardBrown;
-  static const Color bannerGold = AppColors.highlightOrange; // Should match "Waiting List" banner
-  static const Color activeNavInner = AppColors.activeNavGold;
-  static const Color cardContentBg = AppColors.headerGreen; // Using header green for consistency
+  static const Color containerBrown = AppColors.cardBrown; // Mapping cardBrown to container for consistency
+  static const Color bannerOlive = Color(0xFF8DA331); // Correct Olive Green
+  static const Color listCardBg = Colors.white; 
+  static const Color detailsButtonBg = Color(0xFF8DA331); // Button green 
 
   @override
   Widget build(BuildContext context) {
@@ -37,59 +38,94 @@ class CompletedSafariScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Container(
-              color: appGreen.withOpacity(0.6),
-            ),
+          ),
+          // Gradient Overlay
+          Container(
+            color: appGreen.withOpacity(0.6),
           ),
 
           SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    // COMPLETED SAFARIS Banner
-                    Container(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                // Main Container
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
+                    child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        color: bannerGold,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.white, width: 2),
+                        color: containerBrown.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Text(
-                          "COMPLETED SAFARIS",
-                          style: GoogleFonts.langar(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                            color: Colors.black,
+                      child: Column(
+                      children: [
+                          const SizedBox(height: 30),
+                          // COMPLETED TRIPS Banner
+                          Container(
+                            width: 250,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            decoration: BoxDecoration(
+                              color: bannerOlive,
+                              border: Border.all(color: Colors.black12, width: 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "COMPLETED TRIPS",
+                                style: GoogleFonts.langar(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 20),
+                          // DATE filter
+                          Container(
+                            width: 140,
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: bannerOlive,
+                              border: Border.all(color: Colors.black12, width: 1),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "DATE",
+                                  style: GoogleFonts.langar(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const Icon(Icons.calendar_today_outlined, size: 20, color: Colors.black),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          // LIST
+                          Expanded(
+                            child: ListView(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              children: [
+                                _buildTripItem(context, "Roster No. 48"),
+                                _buildTripItem(context, "Roster No. 49"),
+                                _buildTripItem(context, "Roster No. 50"),
+                                _buildTripItem(context, "Roster No. 51"),
+                                _buildTripItem(context, "Roster No. 52"),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
                     ),
-
-                    const SizedBox(height: 30),
-
-                    // LIST OF SAFARIS
-                    _buildSafariCard(
-                      date: "12/12/2025",
-                      zone: "Tala",
-                      slot: "Morning",
-                      vehicle: "MP20ZA1234",
-                    ),
-                    const SizedBox(height: 16),
-                    _buildSafariCard(
-                      date: "10/11/2025",
-                      zone: "Magdhi",
-                      slot: "Evening",
-                      vehicle: "MP20ZA5678",
-                    ),
-                    const SizedBox(height: 40),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
         ],
@@ -99,62 +135,67 @@ class CompletedSafariScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSafariCard({required String date, required String zone, required String slot, required String vehicle}) {
+  Widget _buildTripItem(BuildContext context, String title) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: cardContentBg,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white, width: 1),
+        color: listCardBg,
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Date: $date",
-                style: GoogleFonts.langar(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-               Text(
-                "Zone: $zone",
-                style: GoogleFonts.langar(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Slot: $slot",
-                style: GoogleFonts.langar(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-               Text(
-                "Vehicle: $vehicle",
-                style: GoogleFonts.langar(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: bannerGold,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                "COMPLETED",
-                style: GoogleFonts.langar(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
-              ),
+          Container(
+            width: 60,
+            height: 60,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
             ),
-          )
+            child: const Icon(Icons.directions_car, size: 40, color: Colors.black),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.langar(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      FadeRoute(page: const SafariDetailsScreen()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: detailsButtonBg,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "GET DETAILS",
+                      style: GoogleFonts.langar(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
-
-
 }
