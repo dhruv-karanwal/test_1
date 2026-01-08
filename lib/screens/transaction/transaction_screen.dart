@@ -5,6 +5,7 @@ import '../menu/menu_screen.dart';
 import '../../utils/app_colors.dart';
 import 'transaction_history_screen.dart';
 import '../../utils/fade_route.dart';
+import '../compensation/compensation_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({super.key});
@@ -108,16 +109,19 @@ class TransactionScreen extends StatelessWidget {
 
             // MENU BUTTONS
             _buildMenuButton(context, "TRANSACTION HISTORY", () {
+               Navigator.pop(context);
                Navigator.push(
                  context,
                  FadeRoute(page: const TransactionHistoryScreen()),
                );
             }),
             const SizedBox(height: 16),
-            _buildMenuButton(context, "OTHER", () {
-               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Other - Coming Soon")),
-              );
+            _buildMenuButton(context, "COMPENSATION", () {
+               Navigator.pop(context);
+               Navigator.push(
+                 context,
+                 FadeRoute(page: const CompensationScreen()),
+               );
             }),
             
             Expanded(child: Container()), // Spacer

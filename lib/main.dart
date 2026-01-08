@@ -4,6 +4,7 @@ import 'screens/rooster/rosters_detail_screen.dart';
 import 'screens/guide/guide_detail_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/landing/landing_screen.dart';
+import 'screens/landing/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bandhavgarh Safari',
-      home: const LandingScreen(), // Start at Landing Page
+      home: const SplashScreen(), // Start at Splash Screen
     );
   }
 }

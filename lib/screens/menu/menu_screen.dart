@@ -10,6 +10,7 @@ import '../../utils/slide_route.dart';
 import '../../utils/fade_route.dart';
 import '../../utils/app_colors.dart';
 import '../compensation/compensation_screen.dart';
+import '../owner/owner_list_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -130,11 +131,11 @@ class MenuScreen extends StatelessWidget {
             );
           }),
           const SizedBox(height: 16),
-          _buildMenuButton(context, "COMPENSATION", () {
+          _buildMenuButton(context, "OWNER DETAILS", () {
             Navigator.pop(context); // Close drawer
             Navigator.push(
               context,
-              FadeRoute(page: const CompensationScreen()),
+              FadeRoute(page: const OwnerListScreen()),
             );
           }),
         ],
