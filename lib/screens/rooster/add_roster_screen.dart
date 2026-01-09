@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../utils/app_colors.dart';
 import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
-import '../../utils/app_colors.dart';
 
 
 class AddRosterApp extends StatelessWidget {
@@ -259,14 +259,15 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                             height: 40,
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
-                              color: headerGreen,
-                              borderRadius: BorderRadius.circular(8),
+                              color: const Color(0xFFD9A648), // Gold/Mustard
+                              borderRadius: BorderRadius.circular(20), // Standardized radius
+                              border: Border.all(color: Colors.white, width: 1), // White border
                             ),
                             alignment: Alignment.center,
                             child: const Text(
                               "DETAILS",
                               style: TextStyle(
-                                color: Colors.black, 
+                                color: Colors.black, // Black text
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                               ),
@@ -347,15 +348,15 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                             child: ElevatedButton(
                               onPressed: _isSaving ? null : _saveRoster,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: saveButtonGreen,
-                                foregroundColor: saveButtonText,
+                                backgroundColor: const Color(0xFFD9A648), // Gold/Mustard
+                                foregroundColor: Colors.black,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 padding: EdgeInsets.zero,
                               ),
                               child: _isSaving 
-                                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: saveButtonText, strokeWidth: 2))
+                                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.black, strokeWidth: 2))
                                 : Text(
                                 "Save",
                                 style: GoogleFonts.langar(

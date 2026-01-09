@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/rooster/rosters_detail_screen.dart';
 import 'screens/guide/guide_detail_screen.dart';
@@ -26,6 +27,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bandhavgarh Safari',
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.langarTextTheme(),
+      ),
       home: const SplashScreen(), // Start at Splash Screen
     );
   }
@@ -40,6 +45,10 @@ class HomeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bandhavgarh Safari',
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.langarTextTheme(),
+      ),
       home: HomeScreen(),
     );
   }

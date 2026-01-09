@@ -4,29 +4,19 @@ import '../../utils/app_colors.dart';
 import '../../utils/fade_route.dart';
 
 class CustomBottomNav extends StatelessWidget {
-  const CustomBottomNav({super.key});
+  final int selectedIndex;
+
+  const CustomBottomNav({super.key, this.selectedIndex = 1}); // Default to 1 (Home)
 
   @override
   Widget build(BuildContext context) {
-    // Colors from design
-    // Colors from design
-    // const Color appGreen = AppColors.appGreen; // Unused local var, but consistent
-    // const Color navUnselected = AppColors.navIconBg; // Grey
-    // const Color navSelectedOuter = Colors.white;
-    // const Color navSelectedInner = AppColors.activeNavGold; // Gold/Yellow
-
-    // We can assume we are not selected on "Detail" screens, or maybe Home is default?
-    // In HotelList, we probably aren't "Home".
-    // We'll mimic the "unselected" look for all, or standard behavior.
-    // Actually, usually bottom nav indicates where we are.
-    // If we are in HotelList, maybe none are selected?
-    // Or maybe we treat it as a sub-page of Home?
-    // Let's implement generic taps.
-
+    // Style constants
+    const Color appGreen = AppColors.appGreen;
+    
     return Container(
       height: 100,
       decoration: const BoxDecoration(
-        color: AppColors.appGreen,
+        color: appGreen,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
@@ -44,20 +34,20 @@ class CustomBottomNav extends StatelessWidget {
   }
 
   Widget _buildNavItem(BuildContext context, String assetPath, int index) {
-    // Logic:
-    // 0 -> Menu (Drawer)
-    // 1 -> Home
-    // 2 -> Transaction (EndDrawer)
-
-    // Visuals: All unselected for now since this is a sub-screen?
-    // Or if index 1 is Home, we are not Home.
+    bool isSelected = selectedIndex == index;
+    // For Home (index 1), we might want it to look "Active" by default if we consider these pages as sub-pages of Home.
     
+    const Color selectedOuterColor = Colors.white;
+    const Color selectedInnerColor = AppColors.activeNavGold; 
+    const Color unselectedColor = AppColors.navIconBg; 
+
     return GestureDetector(
       onTap: () {
         if (index == 0) {
           Scaffold.of(context).openDrawer();
         } else if (index == 1) {
-          Navigator.pushAndRemoveUntil(
+           // If we are already on some sub-page, going "Home" means clearing stack to HomeScreen
+           Navigator.pushAndRemoveUntil(
             context,
             FadeRoute(page: HomeScreen()),
             (route) => false,
@@ -66,17 +56,34 @@ class CustomBottomNav extends StatelessWidget {
           Scaffold.of(context).openEndDrawer();
         }
       },
-      child: Container(
-        width: 60,
-        height: 60,
-        padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(
-          color: AppColors.navIconBg, // Unselected gray
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: isSelected ? 70 : 60,
+        height: isSelected ? 70 : 60,
+        padding: isSelected ? const EdgeInsets.all(6) : const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: isSelected ? selectedOuterColor : unselectedColor,
           shape: BoxShape.circle,
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : [],
         ),
-        child: Image.asset(
-          assetPath,
-          fit: BoxFit.contain,
+        child: Container(
+          decoration: BoxDecoration(
+            color: isSelected ? selectedInnerColor : Colors.transparent, 
+            shape: BoxShape.circle,
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );

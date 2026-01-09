@@ -86,7 +86,7 @@ class _OwnerDetailsScreenState extends State<OwnerDetailsScreen> {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xFFD9D9D9),
+          color: Colors.white, // Changed to White
           borderRadius: BorderRadius.circular(25),
           border: Border.all(color: Colors.black, width: 1),
         ),

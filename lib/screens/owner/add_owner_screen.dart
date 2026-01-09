@@ -49,7 +49,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD9D9D9),
+                      color: Colors.white, // Changed to White
                       borderRadius: BorderRadius.circular(25),
                       border: Border.all(color: Colors.black, width: 1),
                     ),
@@ -153,7 +153,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFF8C9F4E),
+                color: const Color(0xFFD9A648), // Gold/Mustard
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(color: Colors.black, width: 1),
               ),

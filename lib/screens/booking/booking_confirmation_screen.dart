@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
+import '../../widgets/shared_ui.dart';
 import '../../utils/app_colors.dart';
-import '../home/home_screen.dart';
-import '../../utils/fade_route.dart';
 
-class BookingConfirmationScreen extends StatelessWidget {
+class BookingConfirmationScreen extends StatefulWidget {
   const BookingConfirmationScreen({super.key});
+
+  @override
+  State<BookingConfirmationScreen> createState() => _BookingConfirmationScreenState();
+}
+
+class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static const Color appGreen = AppColors.appGreen;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
+      backgroundColor: appGreen,
+      appBar: buildCommonAppBar(context),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/landing_bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(color: appGreen.withOpacity(0.6)),
+      ),
+      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
+    );
+  }
+}
 
   // Colors
   // Colors

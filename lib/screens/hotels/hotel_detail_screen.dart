@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'edit_hotel_screen.dart';
+import '../../widgets/shared_ui.dart';
 import '../widgets/custom_bottom_nav.dart';
 
 import '../menu/menu_screen.dart';
@@ -22,31 +23,7 @@ class HotelDetailScreen extends StatelessWidget {
       drawer: const MenuScreen(),
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        backgroundColor: AppColors.appGreen,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "HOTEL DETAILS",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Langar',
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: SizedBox(
-              width: 36,
-              height: 36,
-              child: Image.asset("assets/images/logo.png", fit: BoxFit.contain
-              ),
-              ),
-            ),
-        ],
-      ),
+      appBar: buildCommonAppBar(context),
        floatingActionButton: FloatingActionButton(
     backgroundColor: AppColors.appGreen,
     child: const Icon(Icons.edit, color: Colors.white),
@@ -60,7 +37,7 @@ class HotelDetailScreen extends StatelessWidget {
     },
   ),
   // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-  // bottomNavigationBar: const CustomBottomNav(),
+      bottomNavigationBar: const CustomBottomNav(selectedIndex: 1),
 
       body: Stack(
         fit: StackFit.expand,
@@ -94,20 +71,20 @@ class HotelDetailScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   // HEADER
+                  // HEADER
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: AppColors.headerGreen,
+                      color: const Color(0xFFD9A648), // Gold/Mustard
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: Colors.black, width: 1),
+                      border: Border.all(color: Colors.white, width: 1), // White border
                     ),
                     child: Center(
                       child: Text(
                         "HOTEL DETAILS MANAGEMENT",
                         style: GoogleFonts.langar(
-                          color: Colors.white,
+                          color: Colors.black, // Black text
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

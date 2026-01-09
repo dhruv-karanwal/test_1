@@ -128,44 +128,44 @@ class HomeScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      width: double.infinity,
-      height: 100, // Reduced height
-      decoration: BoxDecoration(
-        color: buttonGold,
-        borderRadius: BorderRadius.circular(24), // Slightly more rounded
-        border: Border.all(color: Colors.white, width: 2), 
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 6,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          const SizedBox(width: 24), // Left padding
-          CircleAvatar(
-            radius: 30, // Reduced Icon background size
-            backgroundColor: Colors.white,
-             child: Icon(icon, color: Colors.black, size: 32), // Reduced Icon size
-          ),
-          Expanded(
-            child: Center(
-              child: Text(
-                text,
-                style: GoogleFonts.langar(
-                  color: Colors.black,
-                  fontSize: 20, // Reduced Font Size
-                  fontWeight: FontWeight.bold,
+        width: double.infinity,
+        height: 100, // Reduced height
+        decoration: BoxDecoration(
+          color: buttonGold,
+          borderRadius: BorderRadius.circular(24), // Slightly more rounded
+          border: Border.all(color: Colors.white, width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 6,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            const SizedBox(width: 24), // Left padding
+            CircleAvatar(
+              radius: 30, // Reduced Icon background size
+              backgroundColor: Colors.white,
+              child: Icon(icon, color: Colors.black, size: 32), // Reduced Icon size
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  text,
+                  style: GoogleFonts.langar(
+                    color: Colors.black,
+                    fontSize: 20, // Reduced Font Size
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
             ),
-          ),
-          const SizedBox(width: 84), // 60 + 24 = 84 approx balance
-        ],
-      ),
+            const SizedBox(width: 84), // 60 + 24 = 84 approx balance
+          ],
+        ),
       ),
     );
   }

@@ -6,6 +6,8 @@ import '../menu/menu_screen.dart';
 import '../home/home_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../utils/fade_route.dart';
+import '../../widgets/shared_ui.dart';
+import '../widgets/custom_bottom_nav.dart';
 
 class AddGuideApp extends StatelessWidget {
   const AddGuideApp({super.key});
@@ -66,23 +68,6 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
     super.dispose();
   }
 
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      _scaffoldKey.currentState?.openDrawer();
-    } else if (index == 1) {
-       Navigator.pushAndRemoveUntil(
-        context,
-        FadeRoute(page: HomeScreen()),
-        (route) => false,
-      );
-    } else if (index == 2) {
-      _scaffoldKey.currentState?.openEndDrawer();
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-  }
 
   Future<void> _saveGuide() async {
     if (_guideNoController.text.isEmpty || _guideNameController.text.isEmpty) {
@@ -141,49 +126,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
       drawer: const MenuScreen(),
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white.withOpacity(0.2),
-              child: const Icon(Icons.arrow_back, color: Colors.white),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Add Guide",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 22, 
-          ),
-        ),
-        centerTitle: false, 
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 30, 
-              backgroundImage: const AssetImage(
-                 'assets/images/logo.png', 
-              ), 
-              backgroundColor: Colors.white,
-            ),
-          ),
-        ],
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0), 
-            bottomRight: Radius.circular(0),
-          ),
-        ),
-      ),
+      appBar: buildCommonAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -229,14 +172,15 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                             height: 40,
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
-                              color: headerGreen,
-                              borderRadius: BorderRadius.circular(8),
+                              color: const Color(0xFFD9A648), // Gold/Mustard
+                              borderRadius: BorderRadius.circular(20), // Standardized radius
+                              border: Border.all(color: Colors.white, width: 1), // White border
                             ),
                             alignment: Alignment.center,
                             child: const Text(
                               "DETAILS",
                               style: TextStyle(
-                                color: Colors.black, 
+                                color: Colors.black, // Black text
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                               ),
@@ -288,15 +232,15 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                             child: ElevatedButton(
                               onPressed: _isSaving ? null : _saveGuide,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: saveButtonGreen,
-                                foregroundColor: saveButtonText,
+                                backgroundColor: const Color(0xFFD9A648), // Gold/Mustard
+                                foregroundColor: Colors.black,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 padding: EdgeInsets.zero,
                               ),
                               child: _isSaving 
-                                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: saveButtonText, strokeWidth: 2))
+                                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.black, strokeWidth: 2))
                                 : Text(
                                 "Save",
                                 style: GoogleFonts.langar(
@@ -316,24 +260,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 72,
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(0, 'assets/images/nav_menu.png'),
-            _buildNavItem(1, 'assets/images/nav_home_new.png'), 
-            _buildNavItem(2, 'assets/images/transaction.png'),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomBottomNav(selectedIndex: 1),
     );
   }
 
@@ -371,46 +298,4 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
     );
   }
 
-   Widget _buildNavItem(int index, String assetPath) {
-    bool isSelected = _selectedIndex == index;
-    
-    // Style constants
-    const Color selectedOuterColor = Colors.white;
-    const Color selectedInnerColor = AppColors.activeNavGold; // Gold/Yellow
-    const Color unselectedColor = AppColors.navIconBg; // Light Grey
-    
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: isSelected ? 70 : 50,
-        height: isSelected ? 70 : 50,
-        padding: isSelected ? const EdgeInsets.all(6) : EdgeInsets.zero,
-        decoration: BoxDecoration(
-          color: isSelected ? selectedOuterColor : unselectedColor,
-          shape: BoxShape.circle,
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
-              : [],
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: isSelected ? selectedInnerColor : Colors.transparent, // Inner yellow only when selected, else transparent (icon on grey)
-            shape: BoxShape.circle,
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -124,15 +124,15 @@ class HotelListScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: AppColors.headerGreen,
+                      color: const Color(0xFFD9A648), // Gold/Mustard
                       borderRadius: BorderRadius.circular(30), // More rounded
-                      border: Border.all(color: Colors.black, width: 1.5), // Added black border
+                      border: Border.all(color: Colors.white, width: 1.5), // White border
                     ),
                     child: Center(
                       child: Text(
                         "HOTEL DETAILS MANAGEMENT",
                         style: GoogleFonts.langar(
-                          color: Colors.white,
+                          color: Colors.black, // Black text
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -149,7 +149,7 @@ class HotelListScreen extends StatelessWidget {
                       hintStyle: GoogleFonts.langar(color: Colors.grey.shade600),
                       prefixIcon: const Icon(Icons.search, color: Colors.black, size: 28), // Bold/Black icon
                       filled: true,
-                      fillColor: const Color(0xFFD9D9D9), // Light grey/white-ish
+                      fillColor: Colors.white, // Changed to White
                       contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),

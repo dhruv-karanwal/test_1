@@ -169,9 +169,9 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                 width: 300,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: mustardYellow,
+                  color: Colors.white, // Changed to White
                   borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: Colors.white, width: 2), // Added border
+                  border: Border.all(color: Colors.white, width: 2), // Border same as bg or maybe colored? Border is white.
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -180,13 +180,13 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                       child: TextField(
                         textAlignVertical: TextAlignVertical.center,
                         style: GoogleFonts.langar( // Explicit Langar
-                          color: darkBrown, 
+                          color: Colors.black, // Changed to Black
                           fontWeight: FontWeight.w600
                         ),
                         decoration: InputDecoration(
                           hintText: "Search Roster No.",
                           hintStyle: GoogleFonts.langar( // Explicit Langar
-                            color: darkBrown,
+                            color: Colors.black, // Changed to Black
                             fontWeight: FontWeight.w600,
                           ),
                           border: InputBorder.none,
@@ -195,7 +195,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                         ),
                       ),
                     ),
-                    const Icon(Icons.search, color: darkBrown),
+                    const Icon(Icons.search, color: Colors.black), // Changed to Black
                   ],
                 ),
               ),

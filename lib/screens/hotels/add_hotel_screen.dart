@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/app_colors.dart';
+import '../../widgets/shared_ui.dart';
 import 'hotel_list_screen.dart';
 import '../widgets/custom_bottom_nav.dart';
 
@@ -22,32 +23,8 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
       drawer: const MenuScreen(),
       endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        backgroundColor: AppColors.appGreen,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          "Add Hotel",
-          style: GoogleFonts.langar(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: SizedBox(
-              width: 36,
-              height: 36,
-              child: Image.asset("assets/images/logo.png", fit: BoxFit.contain), // Fixed logo path
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: const CustomBottomNav(),
+      appBar: buildCommonAppBar(context),
+      bottomNavigationBar: const CustomBottomNav(selectedIndex: 1),
 
       body: Stack(
         children: [
@@ -82,17 +59,15 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        color: AppColors.headerGreen, 
-                        borderRadius: BorderRadius.circular(0), // Rectangularish inside? keeping rounded for now 
-                        // Screenshot shows rounded corners for the header inside the card? No, maybe full width?
-                        // Let's stick to previous pill shape but dark green.
-                        // Actually screenshot 2 shows it inside the brown card.
+                        color: const Color(0xFFD9A648), // Gold/Mustard
+                        borderRadius: BorderRadius.circular(20), // Standardized radius
+                        border: Border.all(color: Colors.white, width: 1), // White border
                       ),
                       child: Center(
                         child: Text(
                           "DETAILS",
                           style: GoogleFonts.langar(
-                            color: Colors.white,
+                            color: Colors.black, // Changed to Black
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -130,7 +105,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: AppColors.highlightOrange,
+                          color: const Color(0xFFD9A648), // Gold/Mustard
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                              BoxShadow(

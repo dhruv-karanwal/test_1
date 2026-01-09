@@ -149,7 +149,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
                 width: 300,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: mustardYellow,
+                  color: Colors.white, // Changed to White
                   borderRadius: BorderRadius.circular(22),
                   border: Border.all(color: Colors.white, width: 2), // Added border
                 ),
@@ -160,13 +160,13 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
                       child: TextField(
                         textAlignVertical: TextAlignVertical.center,
                         style: GoogleFonts.langar( 
-                          color: darkBrown, 
+                          color: Colors.black, // Changed to Black
                           fontWeight: FontWeight.w600
                         ),
                         decoration: InputDecoration(
                           hintText: "Search Guide No.",
                           hintStyle: GoogleFonts.langar( 
-                            color: darkBrown,
+                            color: Colors.black, // Changed to Black
                             fontWeight: FontWeight.w600,
                           ),
                           border: InputBorder.none,
@@ -175,7 +175,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
                         ),
                       ),
                     ),
-                    const Icon(Icons.search, color: darkBrown),
+                    const Icon(Icons.search, color: Colors.black), // Changed to Black
                   ],
                 ),
               ),

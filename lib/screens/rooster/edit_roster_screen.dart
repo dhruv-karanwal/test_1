@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/app_colors.dart';
+import '../../widgets/shared_ui.dart';
+import '../widgets/custom_bottom_nav.dart';
 
 class EditRosterScreen extends StatefulWidget {
   final int rosterNumber; // Receive roster number
@@ -118,12 +120,6 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
     super.dispose();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    debugPrint("Selected index: $index");
-  }
 
   Future<void> _saveRoster() async {
     setState(() { _isSaving = true; });
@@ -176,49 +172,7 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        toolbarHeight: 93,
-        backgroundColor: appGreen,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white.withOpacity(0.2),
-              child: const Icon(Icons.arrow_back, color: Colors.white),
-            ),
-          ),
-        ),
-        title: Text(
-          "ROSTER NO. ${widget.rosterNumber}", // Dynamic Title
-          style: GoogleFonts.langar(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        centerTitle: false, 
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 30, 
-              backgroundImage: const AssetImage(
-                 'assets/images/logo.png', 
-              ), 
-              backgroundColor: Colors.white,
-            ),
-          ),
-        ],
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0), 
-            bottomRight: Radius.circular(0),
-          ),
-        ),
-      ),
+      appBar: buildCommonAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -263,8 +217,9 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
                             height: 40,
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
-                              color: headerGreen,
-                              borderRadius: BorderRadius.circular(8),
+                              color: const Color(0xFFD9A648), // Gold/Mustard
+                              borderRadius: BorderRadius.circular(20), // Standardized radius
+                              border: Border.all(color: Colors.white, width: 1), // White border
                             ),
                             alignment: Alignment.center,
                             child: const Text(
@@ -354,15 +309,15 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
                                 child: ElevatedButton(
                                   onPressed: _isSaving ? null : _saveRoster,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: saveButtonGreen,
-                                    foregroundColor: saveButtonText,
+                                    backgroundColor: const Color(0xFFD9A648), // Gold/Mustard
+                                    foregroundColor: Colors.black, // standard black text
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     padding: EdgeInsets.zero,
                                   ),
                                   child: _isSaving 
-                                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: saveButtonText, strokeWidth: 2))
+                                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.black, strokeWidth: 2))
                                     : Text(
                                     "Save",
                                     style: GoogleFonts.langar(
@@ -413,24 +368,7 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 72,
-        decoration: const BoxDecoration(
-          color: appGreen,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(0, 'assets/images/nav_menu.png'),
-            _buildNavItem(1, 'assets/images/nav_home_new.png'), 
-            _buildNavItem(2, 'assets/images/transaction.png'),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomBottomNav(selectedIndex: 1),
     );
   }
 
@@ -522,46 +460,4 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
     );
   }
 
-   Widget _buildNavItem(int index, String assetPath) {
-    bool isSelected = _selectedIndex == index;
-    
-    // Style constants
-    const Color selectedOuterColor = Colors.white;
-    const Color selectedInnerColor = AppColors.activeNavGold; 
-    const Color unselectedColor = AppColors.navIconBg; 
-    
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: isSelected ? 70 : 50,
-        height: isSelected ? 70 : 50,
-        padding: isSelected ? const EdgeInsets.all(6) : EdgeInsets.zero,
-        decoration: BoxDecoration(
-          color: isSelected ? selectedOuterColor : unselectedColor,
-          shape: BoxShape.circle,
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
-              : [],
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: isSelected ? selectedInnerColor : Colors.transparent, 
-            shape: BoxShape.circle,
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
-    );
-  }
 }
