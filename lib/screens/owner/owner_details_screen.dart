@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/shared_ui.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 class OwnerDetailsScreen extends StatefulWidget {
-  const OwnerDetailsScreen({super.key});
+  final Map<String, dynamic> ownerData;
+  const OwnerDetailsScreen({super.key, required this.ownerData});
 
   @override
   State<OwnerDetailsScreen> createState() => _OwnerDetailsScreenState();
@@ -17,6 +20,8 @@ class _OwnerDetailsScreenState extends State<OwnerDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: buildCommonAppBar(context),
       body: Stack(
@@ -44,7 +49,7 @@ class _OwnerDetailsScreenState extends State<OwnerDetailsScreen> {
                 const SizedBox(height: 20),
                 
                 // Static Search Bar showing name
-                _buildSearchBar("PRAGATI"),
+                _buildSearchBar(widget.ownerData['Name'] ?? "Unknown"),
                 
                 const SizedBox(height: 40),
                 
@@ -122,13 +127,13 @@ class _OwnerDetailsScreenState extends State<OwnerDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow("Owner name", ": Pragati"),
+          _buildDetailRow("Owner name", ": ${widget.ownerData['Name'] ?? ''}"),
           const SizedBox(height: 12),
-          _buildDetailRow("Roster No.", ": 17, 19"),
+          _buildDetailRow("Roster No.", ": ${widget.ownerData['Rooster nos'] ?? ''}"),
           const SizedBox(height: 12),
-          _buildDetailRow("Total Roosters", ": 02"),
+          _buildDetailRow("Total Roosters", ": ${widget.ownerData['Total Roosters'] ?? ''}"),
           const SizedBox(height: 12),
-          _buildDetailRow("Contact No.", ": 9090909090"),
+          _buildDetailRow("Contact No.", ": ${widget.ownerData['Number'] ?? ''}"),
         ],
       ),
     );

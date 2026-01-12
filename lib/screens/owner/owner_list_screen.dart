@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/shared_ui.dart';
 import '../../utils/fade_route.dart';
 import 'owner_details_screen.dart';
 import 'add_owner_screen.dart';
+import '../menu/menu_screen.dart';
+import '../transaction/transaction_screen.dart';
 
 class OwnerListScreen extends StatefulWidget {
   const OwnerListScreen({super.key});
@@ -29,9 +32,47 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _migrateExistingOwners();
+    _searchController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _migrateExistingOwners() async {
+    final collection = FirebaseFirestore.instance.collection('owner');
+    
+    for (String name in owners) {
+      // Check if document with this name already exists
+      final docRef = collection.doc(name);
+      final docSnapshot = await docRef.get();
+      
+      if (!docSnapshot.exists) {
+        // Add default/dummy data for existing hardcoded owners
+        await docRef.set({
+          'Name': name,
+          'Number': 'N/A',
+          'Total Roosters': 'N/A',
+          'Rooster nos': 'N/A',
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      drawer: const MenuScreen(),
+      endDrawer: TransactionScreen(),
       extendBodyBehindAppBar: true,
       appBar: buildCommonAppBar(context),
       body: Stack(
@@ -63,13 +104,40 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
                 
                 const SizedBox(height: 20),
                 
-                // Owner List
+                // Owner List - StreamBuilder
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    itemCount: owners.length,
-                    itemBuilder: (context, index) {
-                      return _buildOwnerItem(owners[index]);
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('owner')
+                        .orderBy('createdAt', descending: true)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+
+                      final docs = snapshot.data?.docs ?? [];
+                      
+                      // Filter by search query
+                      final filteredDocs = docs.where((doc) {
+                        final data = doc.data() as Map<String, dynamic>;
+                        final name = (data['Name'] ?? '').toString().toLowerCase();
+                        final search = _searchController.text.toLowerCase();
+                        return name.contains(search);
+                      }).toList();
+
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        itemCount: filteredDocs.length,
+                        itemBuilder: (context, index) {
+                          final data = filteredDocs[index].data() as Map<String, dynamic>;
+                          return _buildOwnerItem(data);
+                        },
+                      );
                     },
                   ),
                 ),
@@ -159,7 +227,8 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
     );
   }
 
-  Widget _buildOwnerItem(String name) {
+  Widget _buildOwnerItem(Map<String, dynamic> data) {
+    final name = data['Name'] ?? 'Unknown';
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -186,7 +255,7 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                FadeRoute(page: const OwnerDetailsScreen()),
+                FadeRoute(page: OwnerDetailsScreen(ownerData: data)),
               );
             },
             style: ElevatedButton.styleFrom(
