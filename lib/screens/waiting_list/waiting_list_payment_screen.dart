@@ -11,9 +11,9 @@ class WaitingListPaymentScreen extends StatelessWidget {
   // Colors
   static const Color appGreen = AppColors.appGreen;
   static const Color cardBrown = AppColors.cardBrown;
-  static const Color bannerGold = AppColors.highlightOrange;
-  static const Color summaryCardGreen = AppColors.headerGreen; 
-  static const Color inputFieldColor = AppColors.inputBg;
+  static const Color bannerGold = AppColors.activeNavGold;
+  static const Color summaryCardGreen = AppColors.confirmButton; 
+  static const Color inputFieldColor = AppColors.searchBarBg;
   static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
@@ -101,7 +101,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: cardBrown.withOpacity(0.9),
+                        color: AppColors.cardBrown.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.transparent, width: 1),
                       ),
@@ -290,7 +290,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: AppColors.buttonBrown, // Brownish button color
+          color: AppColors.confirmButton, // Use Bright Green Save/Confirm color
           borderRadius: BorderRadius.circular(30), // Rounded button
              boxShadow: [
             BoxShadow(
@@ -323,7 +323,7 @@ class WaitingListPaymentScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: AppColors.navIconBg,
+             color: AppColors.searchBarBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

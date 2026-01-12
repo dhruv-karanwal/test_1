@@ -49,7 +49,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.white, // Changed to White
+                      color: AppColors.searchBarBg, // Updated to Grey
                       borderRadius: BorderRadius.circular(25),
                       border: Border.all(color: Colors.black, width: 1),
                     ),
@@ -57,11 +57,11 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(left: 16.0, right: 8),
-                          child: Icon(Icons.search, color: Colors.black),
+                          child: Icon(Icons.search, color: Colors.white),
                         ),
                         Text(
                           "SEARCH OWNER",
-                          style: GoogleFonts.langar(color: Colors.black54),
+                          style: GoogleFonts.langar(color: Colors.white),
                         ),
                       ],
                     ),
@@ -86,7 +86,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
       width: 280,
       height: 40,
       decoration: BoxDecoration(
-        color: const Color(0xFFD9A648),
+        color: AppColors.activeNavGold,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.white, width: 1),
       ),
@@ -107,7 +107,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF7D5939), // Brownish background
+        color: AppColors.cardBrown.withOpacity(0.9), // Unified Brown
         borderRadius: BorderRadius.circular(40),
         border: Border.all(color: Colors.white, width: 1.5),
         boxShadow: [
@@ -140,7 +140,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
                     "Details have been saved",
                     style: GoogleFonts.langar(color: Colors.white),
                   ),
-                  backgroundColor: const Color(0xFF8C9F4E),
+                  backgroundColor: AppColors.confirmButton,
                   duration: const Duration(seconds: 2),
                 ),
               );
@@ -153,7 +153,7 @@ class _AddOwnerScreenState extends State<AddOwnerScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFFD9A648), // Gold/Mustard
+                color: AppColors.confirmButton, // Unified Green
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(color: Colors.black, width: 1),
               ),

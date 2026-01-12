@@ -41,9 +41,9 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
   // --- COLORS ---
   // --- COLORS ---
   static const Color appGreen = AppColors.appGreen; // Updated Olive Green
-  static const Color mustardYellow = AppColors.highlightOrange; // Search Bar
-  static const Color darkBrown = AppColors.buttonBrown; // List Items / Text / Icons
-  static const Color lightBeige = AppColors.inputBg; // FAB Background
+  static const Color mustardYellow = AppColors.activeNavGold; // Search Bar
+  static const Color darkBrown = AppColors.cardBrown; // List Items / Text / Icons
+  static const Color lightBeige = AppColors.searchBarBg; // FAB Background
   
   // Nav Bar Colors
   static const Color navSelectedOuter = Colors.white;

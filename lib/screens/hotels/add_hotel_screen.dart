@@ -59,7 +59,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD9A648), // Gold/Mustard
+                        color: AppColors.activeNavGold, // Gold/Yellow Unified
                         borderRadius: BorderRadius.circular(20), // Standardized radius
                         border: Border.all(color: Colors.white, width: 1), // White border
                       ),
@@ -105,7 +105,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFD9A648), // Gold/Mustard
+                          color: AppColors.confirmButton, // Gold/Mustard
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                              BoxShadow(

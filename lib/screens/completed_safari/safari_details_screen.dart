@@ -4,15 +4,17 @@ import '../../utils/fade_route.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../../utils/app_colors.dart';
+import '../../widgets/shared_ui.dart';
 
 class SafariDetailsScreen extends StatelessWidget {
-  const SafariDetailsScreen({super.key});
+  SafariDetailsScreen({super.key});
 
-  final Color appGreen = const Color(0xFF555E40);
-  final Color containerBrown = const Color(0xFF6D5446);
-  final Color bannerOlive = const Color(0xFF8DA331);
-  final Color activeNavInner = const Color(0xFFD4AF37);
-  final Color detailsCardBg = const Color(0xFFA6AD77); // Light olive green for card
+  final Color appGreen = AppColors.appGreen;
+  final Color containerBrown = AppColors.cardBrown;
+  final Color bannerGold = AppColors.activeNavGold;
+  final Color activeNavInner = AppColors.activeNavGold;
+  final Color detailsCardBg = AppColors.cardBrown; 
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class SafariDetailsScreen extends StatelessWidget {
                             width: 250,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              color: bannerOlive,
+                              color: bannerGold,
                               border: Border.all(color: Colors.black12, width: 1),
                             ),
                             child: Center(
@@ -119,7 +121,7 @@ class SafariDetailsScreen extends StatelessWidget {
                                     style: GoogleFonts.langar(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      color: AppColors.detailHeading,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
@@ -149,7 +151,7 @@ class SafariDetailsScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         height: 100,
         decoration: const BoxDecoration(
-          color: Color(0xFF555E40),
+          color: AppColors.appGreen,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(18),
             topRight: Radius.circular(18),
@@ -185,7 +187,7 @@ class SafariDetailsScreen extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Color(0xFFD4AF37),
+                    color: AppColors.activeNavGold,
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(12),
@@ -260,7 +262,7 @@ class SafariDetailsScreen extends StatelessWidget {
         width: 60,
         height: 60,
         decoration: const BoxDecoration(
-          color: Color(0xFFD9D9D9),
+          color: AppColors.searchBarBg,
           shape: BoxShape.circle,
         ),
         padding: const EdgeInsets.all(8),

@@ -39,7 +39,7 @@ class CustomBottomNav extends StatelessWidget {
     
     const Color selectedOuterColor = Colors.white;
     const Color selectedInnerColor = AppColors.activeNavGold; 
-    const Color unselectedColor = AppColors.navIconBg; 
+    const Color unselectedColor = AppColors.searchBarBg; 
 
     return GestureDetector(
       onTap: () {

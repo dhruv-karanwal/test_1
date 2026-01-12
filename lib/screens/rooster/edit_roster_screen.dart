@@ -18,9 +18,9 @@ class _EditRosterScreenState extends State<EditRosterScreen> {
   // Colors extracted/approximated from description
   static const Color appGreen = AppColors.appGreen; // Updated Olive Green
   static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
-  static const Color headerGreen = AppColors.headerGreen; // Darker green strip
-  static const Color inputBackground = AppColors.inputBg; // Off-white
-  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color headerGreen = AppColors.appGreen; // Darker green strip
+  static const Color inputBackground = AppColors.searchBarBg; // Off-white
+  static const Color saveButtonGreen = AppColors.confirmButton; // Bright green
   static const Color saveButtonText = Colors.black; // Dark green
   static const Color editButtonOrange = AppColors.activeNavGold; // Using Gold for Edit
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey

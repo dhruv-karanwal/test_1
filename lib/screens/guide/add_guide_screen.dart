@@ -44,7 +44,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
   static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
   static const Color headerGreen = AppColors.headerGreen; // Darker green strip
   static const Color inputBackground = AppColors.inputBg; // Off-white
-  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color saveButtonGreen = AppColors.confirmButton; // Bright green
   static const Color saveButtonText = Colors.black; // Dark green
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey
 
@@ -172,7 +172,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                             height: 40,
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD9A648), // Gold/Mustard
+                              color: AppColors.activeNavGold, // Gold/Yellow Unified
                               borderRadius: BorderRadius.circular(20), // Standardized radius
                               border: Border.all(color: Colors.white, width: 1), // White border
                             ),
@@ -232,7 +232,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                             child: ElevatedButton(
                               onPressed: _isSaving ? null : _saveGuide,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFD9A648), // Gold/Mustard
+                                backgroundColor: AppColors.confirmButton, // Unified Green
                                 foregroundColor: Colors.black,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),

@@ -41,9 +41,9 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
   // Colors extracted/approximated from description
   static const Color appGreen = AppColors.appGreen; // Updated Olive Green
   static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
-  static const Color headerGreen = AppColors.headerGreen; // Darker green strip
-  static const Color inputBackground = AppColors.inputBg; // Off-white
-  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color headerGreen = AppColors.appGreen; // Darker green strip
+  static const Color inputBackground = AppColors.searchBarBg; // Off-white
+  static const Color saveButtonGreen = AppColors.confirmButton; // Bright green
   static const Color saveButtonText = Colors.black; // Dark green
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey
 
@@ -259,7 +259,7 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                             height: 40,
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD9A648), // Gold/Mustard
+                              color: AppColors.activeNavGold, // Gold/Mustard
                               borderRadius: BorderRadius.circular(20), // Standardized radius
                               border: Border.all(color: Colors.white, width: 1), // White border
                             ),
@@ -348,7 +348,7 @@ class _AddRosterScreenState extends State<AddRosterScreen> {
                             child: ElevatedButton(
                               onPressed: _isSaving ? null : _saveRoster,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFD9A648), // Gold/Mustard
+                                backgroundColor: AppColors.confirmButton, // Unified Green
                                 foregroundColor: Colors.black,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),

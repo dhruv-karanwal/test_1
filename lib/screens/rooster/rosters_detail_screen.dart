@@ -43,9 +43,9 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
   // --- COLORS ---
   // --- COLORS ---
   static const Color appGreen = AppColors.appGreen; // Updated Olive Green
-  static const Color mustardYellow = AppColors.highlightOrange; // Changed to unify with orange highlights
-  static const Color darkBrown = AppColors.buttonBrown; // List Items / Text / Icons
-  static const Color lightBeige = AppColors.inputBg; // FAB Background
+  static const Color mustardYellow = AppColors.activeNavGold; // Changed to unify with orange highlights
+  static const Color darkBrown = AppColors.cardBrown; // List Items / Text / Icons
+  static const Color lightBeige = AppColors.searchBarBg; // FAB Background
   
   // Nav Bar Colors
   static const Color navSelectedOuter = Colors.white;
@@ -169,9 +169,9 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                 width: 300,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: Colors.white, // Changed to White
+                  color: AppColors.searchBarBg, // Updated to Grey
                   borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: Colors.white, width: 2), // Border same as bg or maybe colored? Border is white.
+                  border: Border.all(color: Colors.black, width: 1), // Optional border
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -186,7 +186,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                         decoration: InputDecoration(
                           hintText: "Search Roster No.",
                           hintStyle: GoogleFonts.langar( // Explicit Langar
-                            color: Colors.black, // Changed to Black
+                            color: Colors.white, // Search text should be white on grey
                             fontWeight: FontWeight.w600,
                           ),
                           border: InputBorder.none,
@@ -195,7 +195,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
                         ),
                       ),
                     ),
-                    const Icon(Icons.search, color: Colors.black), // Changed to Black
+                    const Icon(Icons.search, color: Colors.white), // Changed to White
                   ],
                 ),
               ),
@@ -334,7 +334,7 @@ class _RosterDetailScreenState extends State<RosterDetailScreen> {
               height: 48,
               child: FloatingActionButton(
                 onPressed: _navigateToAddRoster,
-                backgroundColor: lightBeige,
+                backgroundColor: AppColors.confirmButton,
                 elevation: 4,
                 shape: const CircleBorder(), // Circular
                 child: const Icon(

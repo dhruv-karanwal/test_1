@@ -18,10 +18,10 @@ class MenuScreen extends StatelessWidget {
   // Colors extracted from design
   // Colors extracted from design
   static const Color appGreen = AppColors.appGreen; // Standard App Green
-  static const Color buttonBrown = AppColors.buttonBrown; // Brown buttons
-  static const Color userCardBrown = AppColors.buttonBrown; // User Info Card
-  static const Color userIconBg = AppColors.navIconBg; // Grey circle
-  static const Color drawerBackground = Color(0xFFD4C19C); // Beige Drawer Background
+  static const Color buttonBrown = AppColors.cardBrown; // Brown buttons
+  static const Color userCardBrown = AppColors.cardBrown; // User Info Card
+  static const Color userIconBg = AppColors.searchBarBg; // Grey circle
+  static const Color drawerBackground = AppColors.drawerBeige; // Beige Drawer Background
 
   @override
   Widget build(BuildContext context) {

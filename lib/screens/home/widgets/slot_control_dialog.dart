@@ -17,7 +17,7 @@ class _SlotControlDialogState extends State<SlotControlDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      backgroundColor: AppColors.inputBg,
+      backgroundColor: AppColors.searchBarBg,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -58,7 +58,7 @@ class _SlotControlDialogState extends State<SlotControlDialog> {
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonBrown,
+                backgroundColor: AppColors.cardBrown,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

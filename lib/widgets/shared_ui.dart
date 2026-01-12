@@ -7,7 +7,7 @@ import '../screens/landing/landing_screen.dart';
 import '../screens/widgets/custom_bottom_nav.dart';
 
 // extracted from HomeScreen
-const Color appGreen = Color(0xFF555E40);
+const Color appGreen = AppColors.appGreen;
 const Color activeNavInner = AppColors.activeNavGold;
 const Color activeNavOuter = Colors.white;
 

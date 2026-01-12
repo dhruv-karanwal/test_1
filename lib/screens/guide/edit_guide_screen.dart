@@ -20,7 +20,7 @@ class _EditGuideScreenState extends State<EditGuideScreen> {
   static const Color cardBackground = AppColors.cardBrown; // Semi-transparent brown/olive
   static const Color headerGreen = AppColors.headerGreen; // Darker green strip
   static const Color inputBackground = AppColors.inputBg; // Off-white
-  static const Color saveButtonGreen = AppColors.highlightOrange; // Bright green
+  static const Color saveButtonGreen = AppColors.confirmButton; // Bright green
   static const Color saveButtonText = Colors.black; // Dark green
   static const Color editButtonOrange = AppColors.activeNavGold; // Salmon/Orange for Edit
   static const Color qrPlaceholder = Color(0xFFE0E0E0); // Light grey

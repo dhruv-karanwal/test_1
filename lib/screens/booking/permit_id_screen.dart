@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../widgets/shared_ui.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/fade_route.dart';
+import '../home/home_screen.dart';
+import 'entry_choice_screen.dart';
+import 'booking_confirmation_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PermitIdScreen extends StatefulWidget {
   const PermitIdScreen({super.key});
@@ -13,36 +19,14 @@ class PermitIdScreen extends StatefulWidget {
 
 class _PermitIdScreenState extends State<PermitIdScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const Color appGreen = AppColors.appGreen;
+  final TextEditingController _permitController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: const MenuScreen(),
-      endDrawer: TransactionScreen(),
-      backgroundColor: appGreen,
-      appBar: buildCommonAppBar(context),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/landing_bg.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(color: appGreen.withOpacity(0.6)),
-      ),
-      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
-    );
-  }
-}
-  
-  // Colors
   // Colors
   static const Color appGreen = AppColors.appGreen;
-  static const Color headerOrange = AppColors.highlightOrange; // Orange for toggle/header
-  static const Color cardGreen = AppColors.headerGreen;
-  static const Color buttonBrown = AppColors.buttonBrown;
+  static const Color headerOrange = AppColors.activeNavGold; // Orange for toggle/header
+  static const Color cardBrown = AppColors.cardBrown;
+  static const Color cardGreen = AppColors.cardBrown; // Added for compatibility with summary card
+  static const Color confirmButton = AppColors.confirmButton;
   
   @override
   void dispose() {
@@ -151,7 +135,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
                         Expanded(
                           child: Container(
                              decoration: BoxDecoration(
-                              color: headerOrange,
+                              color: AppColors.activeNavGold,
                               borderRadius: BorderRadius.circular(21),
                             ),
                             child: Center(
@@ -173,7 +157,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: buttonBrown, // Brown card
+                      color: AppColors.cardBrown, // Brown card
                       borderRadius: BorderRadius.circular(20),
                        border: Border.all(color: Colors.white, width: 1),
                     ),
@@ -247,7 +231,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
                      child: ElevatedButton(
                         onPressed: _confirm,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: buttonBrown,
+                          backgroundColor: AppColors.confirmButton,
                           foregroundColor: Colors.white,
                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -361,7 +345,7 @@ class _PermitIdScreenState extends State<PermitIdScreen> {
           width: size,
           height: size,
           decoration: const BoxDecoration(
-            color: AppColors.navIconBg,
+            color: AppColors.searchBarBg,
             shape: BoxShape.circle,
           ),
           padding: const EdgeInsets.all(8),

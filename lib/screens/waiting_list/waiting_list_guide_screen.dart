@@ -11,9 +11,9 @@ class WaitingListGuideScreen extends StatelessWidget {
   // Colors
   // Colors
   static const Color appGreen = AppColors.appGreen;
+  static const Color bannerGold = AppColors.activeNavGold; // Use Gold for banner
   static const Color cardBrown = AppColors.cardBrown;
-  static const Color bannerGold = AppColors.highlightOrange; // Orange banner
-  static const Color inputFieldColor = AppColors.inputBg;
+  static const Color inputFieldColor = AppColors.searchBarBg;
   static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
@@ -101,7 +101,7 @@ class WaitingListGuideScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: cardBrown.withOpacity(0.9),
+                        color: AppColors.cardBrown.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.transparent, width: 1),
                       ),
@@ -110,7 +110,7 @@ class WaitingListGuideScreen extends StatelessWidget {
                           Text(
                             "GUIDE DETAILS",
                             style: GoogleFonts.langar(
-                              color: Colors.black,
+                              color: AppColors.detailHeading,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -226,7 +226,7 @@ class WaitingListGuideScreen extends StatelessWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: AppColors.headerGreen, // Dark green ish
+          color: AppColors.confirmButton, // Greenish
           borderRadius: BorderRadius.circular(8),
              boxShadow: [
             BoxShadow(
@@ -259,7 +259,7 @@ class WaitingListGuideScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: AppColors.navIconBg,
+             color: AppColors.searchBarBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

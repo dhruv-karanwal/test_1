@@ -10,10 +10,10 @@ class WaitingListConfirmationScreen extends StatelessWidget {
   // Colors
   // Colors
   static const Color appGreen = AppColors.appGreen;
-  static const Color headerBrown = AppColors.headerGreen; 
-  static const Color cardGreen = AppColors.headerGreen; 
-  static const Color buttonBrown = AppColors.buttonBrown; 
-  static const Color bannerGold = AppColors.highlightOrange;
+  static const Color headerBrown = AppColors.detailHeading; 
+  static const Color cardGreen = AppColors.detailHeading; 
+  static const Color buttonBrown = AppColors.cardBrown; 
+  static const Color bannerGold = AppColors.activeNavGold;
   static const Color activeNavInner = AppColors.activeNavGold;
 
   @override
@@ -279,7 +279,7 @@ class WaitingListConfirmationScreen extends StatelessWidget {
            width: size,
            height: size,
            decoration: const BoxDecoration(
-             color: AppColors.navIconBg,
+             color: AppColors.searchBarBg,
              shape: BoxShape.circle,
            ),
            padding: const EdgeInsets.all(8),

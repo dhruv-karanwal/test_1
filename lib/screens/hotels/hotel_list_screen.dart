@@ -76,7 +76,7 @@ class HotelListScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "add_hotel_fab",
-        backgroundColor: AppColors.highlightOrange, // High visibility
+        backgroundColor: AppColors.confirmButton, // Unified FAB green
         child: const Icon(Icons.add, color: Colors.white),
         onPressed: () {
           Navigator.push(
@@ -124,7 +124,7 @@ class HotelListScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD9A648), // Gold/Mustard
+                      color: AppColors.activeNavGold, // Gold/Yellow Unified
                       borderRadius: BorderRadius.circular(30), // More rounded
                       border: Border.all(color: Colors.white, width: 1.5), // White border
                     ),
@@ -146,10 +146,10 @@ class HotelListScreen extends StatelessWidget {
                     style: GoogleFonts.langar(color: Colors.black),
                     decoration: InputDecoration(
                       hintText: "SEARCH HOTEL", // Uppercase
-                      hintStyle: GoogleFonts.langar(color: Colors.grey.shade600),
-                      prefixIcon: const Icon(Icons.search, color: Colors.black, size: 28), // Bold/Black icon
+                      hintStyle: GoogleFonts.langar(color: Colors.white),
+                      prefixIcon: const Icon(Icons.search, color: Colors.white, size: 28), // Bold/White icon
                       filled: true,
-                      fillColor: Colors.white, // Changed to White
+                      fillColor: AppColors.searchBarBg, // Changed to Grey
                       contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),

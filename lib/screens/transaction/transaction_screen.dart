@@ -15,9 +15,9 @@ class TransactionScreen extends StatelessWidget {
   // Colors
   // Colors
   static const Color appGreen = AppColors.appGreen; 
-  static const Color buttonBrown = AppColors.buttonBrown; 
+  static const Color buttonBrown = AppColors.cardBrown; 
   static const Color userCardBrown = AppColors.cardBrown; 
-  static const Color userIconBg = AppColors.navIconBg; 
+  static const Color userIconBg = AppColors.searchBarBg; 
   static const Color activeNavInner = AppColors.activeNavGold; // Gold/Yellow
   static const Color activeNavOuter = Colors.white;
   static const Color drawerBackground = Color(0xFFD4C19C); // Keep specific drawer color or standardize? Keeping for now. 
@@ -179,7 +179,7 @@ class TransactionScreen extends StatelessWidget {
         width: 60, 
         height: 60, 
         decoration: const BoxDecoration(
-          color: AppColors.navIconBg,
+          color: AppColors.searchBarBg,
           shape: BoxShape.circle,
         ),
          padding: const EdgeInsets.all(8), 

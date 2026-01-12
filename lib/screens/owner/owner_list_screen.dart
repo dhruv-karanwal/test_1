@@ -140,7 +140,7 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.white, // Changed to White
+          color: AppColors.searchBarBg, // Changed to Grey
           borderRadius: BorderRadius.circular(25),
           border: Border.all(color: Colors.black, width: 1),
         ),
@@ -149,8 +149,8 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
           style: GoogleFonts.langar(color: Colors.black),
           decoration: InputDecoration(
             hintText: "SEARCH OWNER",
-            hintStyle: GoogleFonts.langar(color: Colors.black54),
-            prefixIcon: const Icon(Icons.search, color: Colors.black),
+            hintStyle: GoogleFonts.langar(color: Colors.white),
+            prefixIcon: const Icon(Icons.search, color: Colors.white),
             border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(vertical: 12),
           ),
@@ -164,7 +164,7 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF7D5939), // Brownish background
+        color: AppColors.cardBrown, // Brownish background
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.black, width: 1),
       ),
@@ -190,7 +190,7 @@ class _OwnerListScreenState extends State<OwnerListScreen> {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF8C9F4E), // Greenish
+              backgroundColor: AppColors.confirmButton, // Greenish
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: const BorderSide(color: Colors.black, width: 1),

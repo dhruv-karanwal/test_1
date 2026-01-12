@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/fade_route.dart';
+import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
 import '../transaction/transaction_screen.dart';
 import '../../widgets/shared_ui.dart';
-import '../../utils/app_colors.dart';
 
 class BookingConfirmationScreen extends StatefulWidget {
   const BookingConfirmationScreen({super.key});
@@ -13,36 +16,12 @@ class BookingConfirmationScreen extends StatefulWidget {
 
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const Color appGreen = AppColors.appGreen;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: const MenuScreen(),
-      endDrawer: TransactionScreen(),
-      backgroundColor: appGreen,
-      appBar: buildCommonAppBar(context),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/landing_bg.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(color: appGreen.withOpacity(0.6)),
-      ),
-      bottomNavigationBar: buildCommonBottomNav(context, _scaffoldKey),
-    );
-  }
-}
 
   // Colors
-  // Colors
   static const Color appGreen = AppColors.appGreen;
-  static const Color headerBrown = AppColors.highlightOrange; // Changed to match theme
+  static const Color headerBrown = AppColors.activeNavGold; // Changed to match theme
   static const Color cardGreen = AppColors.cardBrown; // Changed to match other card backgrounds
-  static const Color buttonBrown = AppColors.buttonBrown; 
+  static const Color buttonBrown = AppColors.cardBrown; 
   static const Color backgroundGreen = AppColors.appGreen; 
 
   @override
@@ -302,7 +281,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
           width: size,
           height: size,
           decoration: const BoxDecoration(
-            color: AppColors.navIconBg,
+            color: AppColors.searchBarBg,
             shape: BoxShape.circle,
           ),
           padding: const EdgeInsets.all(8),
